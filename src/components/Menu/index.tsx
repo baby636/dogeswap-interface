@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BookOpen, Code, Info, MessageCircle, PieChart, Twitter, Send, Rss } from 'react-feather'
+import { BookOpen, Code, Info, PieChart, Twitter, Send, Rss, GitHub } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
@@ -7,7 +7,6 @@ import { useActiveWeb3React } from '../../hooks'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
-// import WechatHelperImg from '../../assets/images/wechat_helper.png'
 import { ExternalLink } from '../../theme'
 import { ButtonPrimary } from '../Button'
 
@@ -133,10 +132,10 @@ export default function Menu() {
             <Rss size={14} />
             Medium
           </MenuItem>
-          {/* <MenuItem id="link" href={WechatHelperImg}>
-            <MessageCircle size={14} />
-            {t('wechatAssistant')}
-          </MenuItem> */}
+          <MenuItem id="link" href="https://github.com/Dogeswap-Fans">
+            <GitHub size={14} />
+            Github
+          </MenuItem>
           {!hideSomething && (
             <>
               <MenuItem id="link" href="https://uniswap.org/">
@@ -152,7 +151,7 @@ export default function Menu() {
                 Code
               </MenuItem>
               <MenuItem id="link" href="https://discord.gg/EwFs3Pp">
-                <MessageCircle size={14} />
+                {/* <MessageCircle size={14} /> */}
                 Discord
               </MenuItem>
               <MenuItem id="link" href="https://uniswap.info/">
