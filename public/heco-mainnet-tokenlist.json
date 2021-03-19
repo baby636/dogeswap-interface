@@ -1,0 +1,705 @@
+{
+  "name": "Heco Mainnet Tokens",
+  "version": {
+    "major": 1,
+    "minor": 1,
+    "patch": 2
+  },
+  "keywords": [
+    "heco",
+    "tokens",
+    "mainnet"
+  ],
+  "logoURI": "https://app.dogeswap.com/images/heco-mainnet-logo.svg",
+  "timestamp": "2021-03-07T14:46:35+0000",
+  "tokens": [
+    {
+      "name": "Heco-Peg HBCH Token",
+      "chainId": 128,
+      "symbol": "HBCH",
+      "decimals": 18,
+      "address": "0xef3cebd77e0c52cb6f60875d9306397b5caca375",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xef3cebd77e0c52cb6f60875d9306397b5caca375.png"
+    },
+    {
+      "name": "Heco-Peg HLTC Token",
+      "chainId": 128,
+      "symbol": "HLTC",
+      "decimals": 18,
+      "address": "0xecb56cf772b5c9a6907fb7d32387da2fcbfb63b4",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xecb56cf772b5c9a6907fb7d32387da2fcbfb63b4.png"
+    },
+    {
+      "name": "Heco-Peg HPT Token",
+      "chainId": 128,
+      "symbol": "HPT",
+      "decimals": 18,
+      "address": "0xe499ef4616993730ced0f31fa2703b92b50bb536",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xe499ef4616993730ced0f31fa2703b92b50bb536.png"
+    },
+    {
+      "name": "Heco-Peg HBSV Token",
+      "chainId": 128,
+      "symbol": "HBSV",
+      "decimals": 18,
+      "address": "0xc2cb6b5357ccce1b99cd22232942d9a225ea4eb1",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xc2cb6b5357ccce1b99cd22232942d9a225ea4eb1.png"
+    },
+    {
+      "name": "Heco-Peg HFIL Token",
+      "chainId": 128,
+      "symbol": "HFIL",
+      "decimals": 18,
+      "address": "0xae3a768f9ab104c69a7cd6041fe16ffa235d1810",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xae3a768f9ab104c69a7cd6041fe16ffa235d1810.png"
+    },
+    {
+      "name": "Heco-Peg USDTHECO Token",
+      "chainId": 128,
+      "symbol": "USDT",
+      "decimals": 18,
+      "address": "0xa71edc38d189767582c38a3145b5873052c3e47a",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa71edc38d189767582c38a3145b5873052c3e47a.png"
+    },
+    {
+      "name": "Heco-Peg HDOT Token",
+      "chainId": 128,
+      "symbol": "HDOT",
+      "decimals": 18,
+      "address": "0xa2c49cee16a5e5bdefde931107dc1fae9f7773e3",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa2c49cee16a5e5bdefde931107dc1fae9f7773e3.png"
+    },
+    {
+      "name": "Heco-Peg SNX Token",
+      "chainId": 128,
+      "symbol": "SNX",
+      "decimals": 18,
+      "address": "0x777850281719d5a96c29812ab72f822e0e09f3da",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x777850281719d5a96c29812ab72f822e0e09f3da.png"
+    },
+    {
+      "name": "Heco-Peg HBTC Token",
+      "chainId": 128,
+      "symbol": "HBTC",
+      "decimals": 18,
+      "address": "0x66a79d23e58475d2738179ca52cd0b41d73f0bea",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x66a79d23e58475d2738179ca52cd0b41d73f0bea.png"
+    },
+    {
+      "name": "Heco-Peg ETH Token",
+      "chainId": 128,
+      "symbol": "ETH",
+      "decimals": 18,
+      "address": "0x64ff637fb478863b7468bc97d30a5bf3a428a1fd",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x64ff637fb478863b7468bc97d30a5bf3a428a1fd.png"
+    },
+    {
+      "name": "Wrapped HT",
+      "chainId": 128,
+      "symbol": "WHT",
+      "decimals": 18,
+      "address": "0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x5545153ccfca01fbd7dd11c0b23ba694d9509a6f.png"
+    },
+    {
+      "name": "Heco-Peg HXTZ Token",
+      "chainId": 128,
+      "symbol": "HXTZ",
+      "decimals": 18,
+      "address": "0x45e97dad828ad735af1df0473fc2735f0fd5330c",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x45e97dad828ad735af1df0473fc2735f0fd5330c.png"
+    },
+    {
+      "name": "Heco-Peg UNI Token",
+      "chainId": 128,
+      "symbol": "UNI",
+      "decimals": 18,
+      "address": "0x22c54ce8321a4015740ee1109d9cbc25815c46e6",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x22c54ce8321a4015740ee1109d9cbc25815c46e6.png"
+    },
+    {
+      "name": "Heco-Peg AAVE Token",
+      "chainId": 128,
+      "symbol": "AAVE",
+      "decimals": 18,
+      "address": "0x202b4936fe1a82a4965220860ae46d7d3939bb25",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x202b4936fe1a82a4965220860ae46d7d3939bb25.png"
+    },
+    {
+      "name": "Heco-Peg HUSD Token",
+      "chainId": 128,
+      "symbol": "HUSD",
+      "decimals": 8,
+      "address": "0x0298c2b32eae4da002a15f36fdf7615bea3da047",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x0298c2b32eae4da002a15f36fdf7615bea3da047.png"
+    },
+    {
+      "name": "MDX Token",
+      "chainId": 128,
+      "symbol": "MDX",
+      "decimals": 18,
+      "address": "0x25d2e80cb6b86881fd7e07dd263fb79f4abe033c",
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x25d2e80cb6b86881fd7e07dd263fb79f4abe033c.png"
+    },
+    {
+      "name": "Heco BAG Token",
+      "address": "0xa042fb0e60125A4022670014AC121931e7501Af4",
+      "symbol": "BAG",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa042fb0e60125a4022670014ac121931e7501af4.png"
+    },
+    {
+      "name": "Heco BAGS Token",
+      "address": "0x6868D406a125Eb30886A6DD6B651D81677d1F22c",
+      "symbol": "BAGS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x6868d406a125eb30886a6dd6b651d81677d1f22c.png"
+    },
+    {
+      "name": "Heco NVT Token",
+      "address": "0xf0e406c49c63abf358030a299c0e00118c4c6ba5",
+      "symbol": "NVT",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xf0e406c49c63abf358030a299c0e00118c4c6ba5.png"
+    },
+    {
+      "name": "Heco FilDA Token",
+      "address": "0xe36ffd17b2661eb57144ceaef942d95295e637f0",
+      "symbol": "FilDA",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xe36ffd17b2661eb57144ceaef942d95295e637f0.png"
+    },
+    {
+      "name": "Heco FC Token",
+      "address": "0x12fAC6B5Fa0bc6250058D99d3a1727628651c12E",
+      "symbol": "FC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x12fac6b5fa0bc6250058d99d3a1727628651c12e.png"
+    },
+    {
+      "name": "Heco FCS Token",
+      "address": "0x1b31b55cD94493d06C7a51678fb1Fe8963258A5d",
+      "symbol": "FCS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x1b31b55cd94493d06c7a51678fb1fe8963258a5d.png"
+    },
+    {
+      "name": "Heco NULS Token",
+      "address": "0xd938e45680da19ad36646ae8d4c671b2b1270f39",
+      "symbol": "NULS",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xd938e45680da19ad36646ae8d4c671b2b1270f39.png"
+    },
+    {
+      "name": "Heco HTC Token",
+      "address": "0x1d9B88ffFb7B78De890729aF67B68aec2eA57D52",
+      "symbol": "HTC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x1d9b88fffb7b78de890729af67b68aec2ea57d52.png"
+    },
+    {
+      "name": "Heco HTS Token",
+      "address": "0x559c0af22D0d3efA9a8b95f2E4eaf6017aEa4c22",
+      "symbol": "HTS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x559c0af22d0d3efa9a8b95f2e4eaf6017aea4c22.png"
+    },
+    {
+      "name": "Heco BLC Token",
+      "address": "0x8AD1caE277B17Ca0Ad0393100E6EBd545B9367Cb",
+      "symbol": "BLC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x8ad1cae277b17ca0ad0393100e6ebd545b9367cb.png"
+    },
+    {
+      "name": "Heco BLS Token",
+      "address": "0xc44468670837b8e0Cc39Cb822FFd2fE36Fb02Bb7",
+      "symbol": "BLS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xc44468670837b8e0cc39cb822ffd2fe36fb02bb7.png"
+    },
+    {
+      "name": "Heco LHB Token",
+      "address": "0x8F67854497218043E1f72908FFE38D0Ed7F24721",
+      "symbol": "LHB",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x8f67854497218043e1f72908ffe38d0ed7f24721.png"
+    },
+    {
+      "name": "BXC",
+      "address": "0x15F4c382926F8A083bC924AbD3aa84Ce3982CAa9",
+      "symbol": "BXC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x15f4c382926f8a083bc924abd3aa84ce3982caa9.png"
+    },
+    {
+      "name": "BXS",
+      "address": "0xbe0e001A5553f4421DC250A20bBdAb0e735495e3",
+      "symbol": "BXS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xbe0e001a5553f4421dc250a20bbdab0e735495e3.png"
+    },
+    {
+      "name": "ELA",
+      "address": "0xa1ecfc2bec06e4b43ddd423b94fef84d0dbc8f5c",
+      "symbol": "ELA",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa1ecfc2bec06e4b43ddd423b94fef84d0dbc8f5c.png"
+    },
+    {
+      "name": "SH",
+      "address": "0x3dc2536480775d0aB5d1D010B853cd2166cf6e11",
+      "symbol": "SH",
+      "decimals": 12,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x3dc2536480775d0ab5d1d010b853cd2166cf6e11.png"
+    },
+    {
+      "name": "HIC",
+      "address": "0xc6794C116198861fa371b820BD5BF1ecf94a3565",
+      "symbol": "HIC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xc6794c116198861fa371b820bd5bf1ecf94a3565.png"
+    },
+    {
+      "name": "HIS",
+      "address": "0x3513F22a33357Ba82373680B14f0B50642d0709d",
+      "symbol": "HIS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x3513f22a33357ba82373680b14f0b50642d0709d.png"
+    },
+    {
+      "name": "GTL",
+      "address": "0xa352baa250dea5a279c825cf826891d9543bf21c",
+      "symbol": "GTL",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa352baa250dea5a279c825cf826891d9543bf21c.png"
+    },
+    {
+      "name": "GTLT",
+      "address": "0x9234d966a3aC7436ad770fb6b340B424A90b0CBb",
+      "symbol": "GTLT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa352baa250dea5a279c825cf826891d9543bf21c.png"
+    },
+    {
+      "name": "ITF",
+      "address": "0x943D97ad0b597F73425d6f740596D0efD3d62507",
+      "symbol": "ITF",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x943d97ad0b597f73425d6f740596d0efd3d62507.png"
+    },
+    {
+      "name": "DBC",
+      "address": "0x80DccC9BDC9b1659a226AE669457BD1e0b293A9b",
+      "symbol": "DBC",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x80dccc9bdc9b1659a226ae669457bd1e0b293a9b.png"
+    },
+    {
+      "name": "SOVI",
+      "address": "0x49e16563a2ba84e560780946f0fb73a8b32c841e",
+      "symbol": "SOVI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x49e16563a2ba84e560780946f0fb73a8b32c841e.png"
+    },
+    {
+      "name": "PTT",
+      "address": "0x7eed8a3ccfe3d507ec4df443773eae792b9ef2d7",
+      "symbol": "PTT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x7eed8a3ccfe3d507ec4df443773eae792b9ef2d7.png"
+    },
+    {
+      "name": "Can",
+      "address": "0x1e6395E6B059fc97a4ddA925b6c5ebf19E05c69f",
+      "symbol": "Can",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x1e6395e6b059fc97a4dda925b6c5ebf19e05c69f.png"
+    },
+    {
+      "name": "SLNV2",
+      "address": "0x4e252342cf35Ff02c4CCA9bc655129f5b4a2f901",
+      "symbol": "SLNV2",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x4e252342cf35ff02c4cca9bc655129f5b4a2f901.png"
+    },
+    {
+      "name": "EDC",
+      "address": "0x68a0a1fef18dfcc422db8be6f0f486dea1999edc",
+      "symbol": "EDC",
+      "decimals": 9,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x68a0a1fef18dfcc422db8be6f0f486dea1999edc.png"
+    },
+    {
+      "name": "DHM",
+      "address": "0xca757a8fc34c5d65f38792f329b05e7d9ca8b18e",
+      "symbol": "DHM",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xca757a8fc34c5d65f38792f329b05e7d9ca8b18e.png"
+    },
+    {
+      "name": "LINK",
+      "address": "0x9e004545c59d359f6b7bfb06a26390b087717b42",
+      "symbol": "LINK",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x9e004545c59d359f6b7bfb06a26390b087717b42.png"
+    },
+    {
+      "name": "BAL",
+      "address": "0x045de15ca76e76426e8fc7cba8392a3138078d0f",
+      "symbol": "BAL",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x045de15ca76e76426e8fc7cba8392a3138078d0f.png"
+    },
+    {
+      "name": "YFI",
+      "address": "0xb4f019beac758abbee2f906033aaa2f0f6dacb35",
+      "symbol": "YFI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xb4f019beac758abbee2f906033aaa2f0f6dacb35.png"
+    },
+    {
+      "name": "BEE",
+      "address": "0xB1F80844a1B84c61ab80CafD88B1f8c09f9342e1",
+      "symbol": "BEE",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xb1f80844a1b84c61ab80cafd88b1f8c09f9342e1.png"
+    },
+    {
+      "name": "HFI",
+      "address": "0x98fc3b60Ed4A504F588342A53746405E355F9347",
+      "symbol": "HFI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x98fc3b60ed4a504f588342a53746405e355f9347.png"
+    },
+    {
+      "name": "Heco-Peg GOF Token",
+      "address": "0x2aafe3c9118db36a20dd4a942b6ff3e78981dce1",
+      "symbol": "GOF",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x2aafe3c9118db36a20dd4a942b6ff3e78981dce1.png"
+    },
+    {
+      "name": "Heco-Peg SWFTC Token",
+      "address": "0x329dda64Cbc4DFD5FA5072b447B3941CE054ebb3",
+      "symbol": "SWFTC",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x329dda64cbc4dfd5fa5072b447b3941ce054ebb3.png"
+    },
+    {
+      "name": "Heco-Peg CNNS Token",
+      "address": "0x4bf06f76c68d81bde1f87535fdcb60adadb01cf5",
+      "symbol": "CNNS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x4bf06f76c68d81bde1f87535fdcb60adadb01cf5.png"
+    },
+    {
+      "name": "Depth Token",
+      "address": "0x48C859531254F25e57D1C1A8E030Ef0B1c895c27",
+      "symbol": "DEP",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x48c859531254f25e57d1c1a8e030ef0b1c895c27.png"
+    },
+    {
+      "name": "Heco TopChain Token",
+      "address": "0x562f3f8bc33386c71b6a718c49839a738f1e63a0",
+      "symbol": "TOPC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x562f3f8bc33386c71b6a718c49839a738f1e63a0.png"
+    },
+    {
+      "name": "Heco-Peg WBTCHECO Token",
+      "address": "0x70d171d269d964d14af9617858540061e7be9ef1",
+      "symbol": "WBTC",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x70d171d269d964d14af9617858540061e7be9ef1.png"
+    },
+    {
+      "name": "Heco-Peg CRO Token",
+      "address": "0xf7e1e39e239c5a920849f435f66097d2e412859e",
+      "symbol": "CRO",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xf7e1e39e239c5a920849f435f66097d2e412859e.png"
+    },
+    {
+      "name": "Heco-Peg FTT Token",
+      "address": "0xc7f7a54892b78b5c812c58d9df8035fce9f4d445",
+      "symbol": "FTT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xc7f7a54892b78b5c812c58d9df8035fce9f4d445.png"
+    },
+    {
+      "name": "Heco-Peg GRT Token",
+      "address": "0xfadd0c7762c59cebc5248019dbac652319cebdbd",
+      "symbol": "GRT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xfadd0c7762c59cebc5248019dbac652319cebdbd.png"
+    },
+    {
+      "name": "Heco-Peg MKR Token",
+      "address": "0x34d75515090902a513f009f4505a750efaad63b0",
+      "symbol": "MKR",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x34d75515090902a513f009f4505a750efaad63b0.png"
+    },
+    {
+      "name": "Heco-Peg COMP Token",
+      "address": "0xce0a5ca134fb59402b723412994b30e02f083842",
+      "symbol": "COMP",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xce0a5ca134fb59402b723412994b30e02f083842.png"
+    },
+    {
+      "name": "Heco-Peg UMA Token",
+      "address": "0xe2563f0a1787ac8a9fa67f3124a3d0ae92d574d2",
+      "symbol": "UMA",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xe2563f0a1787ac8a9fa67f3124a3d0ae92d574d2.png"
+    },
+    {
+      "name": "Heco-Peg NEXO Token",
+      "address": "0x3a6b8b642aa154bada89ed3730c9e820da79ad24",
+      "symbol": "NEXO",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x3a6b8b642aa154bada89ed3730c9e820da79ad24.png"
+    },
+    {
+      "name": "Heco-Peg REN Token",
+      "address": "0x212208bcc81f3a2d0188aff76a2d39351eb53b96",
+      "symbol": "REN",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x212208bcc81f3a2d0188aff76a2d39351eb53b96.png"
+    },
+    {
+      "name": "Heco-Peg ZRX Token",
+      "address": "0x0212da773704cbc4f476ba827406363c87e8d3bd",
+      "symbol": "ZRX",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x0212da773704cbc4f476ba827406363c87e8d3bd.png"
+    },
+    {
+      "name": "Heco-Peg BAT Token",
+      "address": "0xb04ee982e6329febe4c70a53d1725469a1f6963a",
+      "symbol": "BAT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xb04ee982e6329febe4c70a53d1725469a1f6963a.png"
+    },
+    {
+      "name": "Heco-Peg OMG Token",
+      "address": "0x359aa457cc0ef0a64b8aa7e4ecd967dfb30cef48",
+      "symbol": "OMG",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x359aa457cc0ef0a64b8aa7e4ecd967dfb30cef48.png"
+    },
+    {
+      "name": "Heco-Peg BNT Token",
+      "address": "0x756a3dcf7171ad147a801318a7cab3284cff6a85",
+      "symbol": "BNT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x756a3dcf7171ad147a801318a7cab3284cff6a85.png"
+    },
+    {
+      "name": "Heco-Peg MATIC Token",
+      "address": "0xdb11743fe8b129b49b11236e8a715004bdabe7e5",
+      "symbol": "MATIC",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xdb11743fe8b129b49b11236e8a715004bdabe7e5.png"
+    },
+    {
+      "name": "Heco-Peg DAIHECO Token",
+      "address": "0x3d760a45d0887dfd89a2f5385a236b29cb46ed2a",
+      "symbol": "DAI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x3d760a45d0887dfd89a2f5385a236b29cb46ed2a.png"
+    },
+    {
+      "name": "Heco-Peg USDCHECO Token",
+      "address": "0x9362bbef4b8313a8aa9f0c9808b80577aa26b73b",
+      "symbol": "USDC",
+      "decimals": 6,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x9362bbef4b8313a8aa9f0c9808b80577aa26b73b.png"
+    },
+    {
+      "name": "Game Dao Protocol",
+      "address": "0x0f1ed0e22a74a90d92746a1794394da117e4de40",
+      "symbol": "GDT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x0f1ed0e22a74a90d92746a1794394da117e4de40.png"
+    },
+    {
+      "name": "Lucky Finance",
+      "address": "0xa441b796e160e204cd0f53d3216275056a355980",
+      "symbol": "LYFI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa441b796e160e204cd0f53d3216275056a355980.png"
+    },
+    {
+      "name": "BQB",
+      "address": "0x64219ba85088bfcf5fb200d0ae9fc673987fcefb",
+      "symbol": "BQB",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x64219ba85088bfcf5fb200d0ae9fc673987fcefb.png"
+    },
+    {
+      "name": "MNW",
+      "address": "0xbb6b89f1ab97bf88c2a301a2aa7cd3284bc7aba3",
+      "symbol": "MNW",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xbb6b89f1ab97bf88c2a301a2aa7cd3284bc7aba3.png"
+    },
+    {
+      "name": "Heco-Peg ZKS Token",
+      "address": "0xe25a7d0b6bcda2a832d255edef1387e72d20883b",
+      "symbol": "ZKS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xe25a7d0b6bcda2a832d255edef1387e72d20883b.png"
+    },
+    {
+      "name": "Heco-Peg 1INCH Token",
+      "address": "0xd192f8e3224ff0f48b08db4791576b6878b426a0",
+      "symbol": "1INCH",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xd192f8e3224ff0f48b08db4791576b6878b426a0.png"
+    },
+    {
+      "name": "Heco-Peg NPXS Token",
+      "address": "0x7b92e0af7ae7de1c65710869f691231772a8b927",
+      "symbol": "NPXS",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x7b92e0af7ae7de1c65710869f691231772a8b927.png"
+    },
+    {
+      "name": "Heco-Peg CRV Token",
+      "address": "0x6bce534a02f8347f747124082ef3e35dd696748d",
+      "symbol": "CRV",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x6bce534a02f8347f747124082ef3e35dd696748d.png"
+    },
+    {
+      "name": "Heco-Peg HOT Token",
+      "address": "0x26db8742da87d2e74911bfa4a349d4f6f7fc6037",
+      "symbol": "HOT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x26db8742da87d2e74911bfa4a349d4f6f7fc6037.png"
+    },
+    {
+      "name": "Heco-Peg RSR Token",
+      "address": "0x8f6303c8a21398c91abb5eff3b3c9315ca59cbe8",
+      "symbol": "RSR",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x8f6303c8a21398c91abb5eff3b3c9315ca59cbe8.png"
+    },
+    {
+      "name": "Heco-Peg MANA Token",
+      "address": "0x09006b66d89e5213fc173403aacba30620a91f4e",
+      "symbol": "MANA",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x09006b66d89e5213fc173403aacba30620a91f4e.png"
+    },
+    {
+      "name": "Heco-Peg ACH Token",
+      "address": "0x4a31d1ad7430586752a1888fe947e3e7d52affb8",
+      "symbol": "ACH",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x4a31d1ad7430586752a1888fe947e3e7d52affb8.png"
+    },
+    {
+      "name": "Heco-Peg MUSK Token",
+      "address": "0x245a3bb0fb1385522d883d8d8b4a91da17548c07",
+      "symbol": "MUSK",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x245a3bb0fb1385522d883d8d8b4a91da17548c07.png"
+    },
+    {
+      "name": "Heco-Peg MX Token",
+      "address": "0x8d854e603dc777337134286f5b3408261736a88f",
+      "symbol": "MX",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x8d854e603dc777337134286f5b3408261736a88f.png"
+    },
+    {
+      "name": "Heco-Peg YCC Token",
+      "address": "0x80898823fdd0b961c2e9809ef75b673e7f4aa02d",
+      "symbol": "YCC",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x80898823fdd0b961c2e9809ef75b673e7f4aa02d.png"
+    },
+    {
+      "name": "GameDao Vaults",
+      "address": "0x9193754ba76c2de16bec8be02590821cc9798acc",
+      "symbol": "GDB",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x9193754ba76c2de16bec8be02590821cc9798acc.png"
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+// import React, { useState } from 'react';
+// import { BigNumber } from 'ethers';
+// import { Modal } from 'antd';
+// import { useTranslation } from 'react-i18next';
+
+// interface Props {
+//     isOpen: boolean;
+//     onClose(): void;
+//     max: BigNumber;
+//     onConfirm(value: string): Promise<any>;
+//     setErrorMessage(msg: string): void;
+//     setSuccessMessage(msg: string): void;
+// }
+
+// export default function DepositModal(props: Props) {
+//     const { t } = useTranslation();
+//     const {
+//         isOpen,
+//         onClose,
+//         max,
+//         onConfirm,
+//         setErrorMessage,
+//         setSuccessMessage,
+//     } = props;
+//     const [inputValue, setInputValue] = useState<string>();
+//     const [confirming, setConfirming] = useState(false);
+
+//     // const fullBalance = useMemo(() => {
+//     //     return getFullDisplayBalance(max);
+//     // }, [max]);
+
+//     return (
+//         <Modal
+//             aria-labelledby="deposit-modal-title"
+//             visible={isOpen}
+//             onCancel={onClose}
+//         >
+//             <div className="farm-modal">
+//                     <h2 id="deposit-modal-title" className="farm-modal-title">
+//                         {t('farm_deposit_modal_title')}
+//                     </h2>
+//                     <p
+//                         className="farm-modal-balance"
+//                         dangerouslySetInnerHTML={{
+//                             __html: t('farm_lp_balance', {
+//                                 fullBalance: fullBalance.toLocaleString(),
+//                             }),
+//                         }}
+//                     />
+//                     <OutlinedInput
+//                         className="farm-modal-input-field"
+//                         required
+//                         id="outlined-required"
+//                         defaultValue=""
+//                         value={inputValue}
+//                         onChange={(e) => {
+//                             setInputValue(e.target.value);
+//                         }}
+//                         inputProps={{
+//                             min: 0,
+//                             max,
+//                         }}
+//                         endAdornment={
+//                             <>
+//                                 <button
+//                                     className="farm-modal-input-max"
+//                                     onClick={() => {
+//                                         setInputValue(fullBalance);
+//                                     }}
+//                                 >
+//                                     Max
+//                                 </button>
+//                                 <span className="farm-modal-input-field-endpoint">
+//                                     C42-ETH LP
+//                                 </span>
+//                             </>
+//                         }
+//                     />
+//                     <div className="farm-modal-button-group">
+//                         <button className="farm-modal-button" onClick={onClose}>
+//                             {t('farm_modal_cancel')}
+//                         </button>
+//                         <button
+//                             className={classNames(
+//                                 'farm-modal-button',
+//                                 (confirming || !inputValue) && 'disabled',
+//                             )}
+//                             disabled={confirming || !inputValue}
+//                             onClick={async () => {
+//                                 if (inputValue) {
+//                                     setConfirming(true);
+//                                     const result = await onConfirm(inputValue);
+//                                     setConfirming(false);
+//                                     if (result && result.message) {
+//                                         setErrorMessage(result.message);
+//                                     } else {
+//                                         setSuccessMessage(t('pending_tx'));
+//                                         onClose();
+//                                     }
+//                                 }
+//                             }}
+//                         >
+//                             {t('farm_modal_confirm')}
+//                         </button>
+//                     </div>
+//                 </div>
+//         </Modal>
+//     );
+// }
