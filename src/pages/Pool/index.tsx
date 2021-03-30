@@ -39,14 +39,15 @@ const ButtonRow = styled(RowFixed)`
 const ResponsiveButtonPrimary = styled(ButtonPrimary)`
   width: fit-content;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 48%;
+    width: 46%;
+    margin-right: 1rem;
   `};
 `
 
 const ResponsiveButtonSecondary = styled(ButtonSecondary)`
   width: fit-content;
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    width: 48%;
+    width: 46%;
   `};
 `
 

@@ -19,7 +19,7 @@ export const UNSUPPORTED_LIST_URLS: string[] = []
 // const GEMINI_LIST = 'https://www.gemini.com/uniswap/manifest.json'
 
 // const HECO_TESTNET_LIST = window.location.origin + '/heco-testnet-tokenlist.json'
-const HECO_MAINNET_LIST = window.location.origin + '/heco-mainnet-tokenlist.json?v=2&t=20210319'
+const HECO_MAINNET_LIST = window.location.origin + '/heco-mainnet-tokenlist.json?v=3&t=20210327'
 
 // lower index == higher priority for token import
 export const DEFAULT_LIST_OF_LISTS: string[] = [

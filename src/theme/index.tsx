@@ -15,8 +15,10 @@ export * from './components'
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
   upToSmall: 720,
+  upToSmallMedium: 845,
   upToMedium: 960,
-  upToLarge: 1280
+  upToLarge: 1280,
+  upToExtraLarge: 1330,
 }
 
 const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
@@ -54,7 +56,7 @@ export function colors(darkMode: boolean): Colors {
     bg3: darkMode ? '#40444F' : '#EDEEF2',
     bg4: darkMode ? '#565A69' : '#CED0D9',
     bg5: darkMode ? '#6C7284' : '#888D9B',
-    bg6: darkMode ? 'transparent' : '#f07d1c',
+    bg6: darkMode ? 'transparent' : '#f0791d',
     bg7: darkMode ? '#2C2F36' : '#f07d1c',
     bg8: darkMode ? '#40444F' : '#f07d1c',
     bg9: darkMode ? '#2C2F36' : '#ffffff',
@@ -62,6 +64,7 @@ export function colors(darkMode: boolean): Colors {
     bg11: darkMode ? 'trasparent' : '#FFFFFF',
     bg12: darkMode ? '#2172E5' : '#000000',
     bg13: darkMode ? '#000000' : '#f7f6f2',
+    bg14: darkMode ? '#888D9B' : '#000000',
 
     //specialty colors
     modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',

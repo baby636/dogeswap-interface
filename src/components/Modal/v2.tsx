@@ -24,6 +24,9 @@ const DogModal = styled(Modal)`
     }
 
     .ant-modal-close-icon {
+        border: 2px solid #000;
+        border-radius: 50%;
+        padding: 5px;
         > svg {
             fill:${({ theme }) => theme.text1};
         }
@@ -41,6 +44,7 @@ interface Props {
     onClose(): void;
     onOk?(): void;
     children?: React.ReactNode;
+    hideFooter?: boolean
 }
 
 export default function DogModalFunc(props: Props) {
@@ -48,17 +52,21 @@ export default function DogModalFunc(props: Props) {
         <DogModal 
             visible={props.visible} 
             onCancel={props.onClose}
-            title={<TYPE.black>{props.title}</TYPE.black>}
+            title={props.title && <TYPE.black>{props.title}</TYPE.black>}
             footer={null}
             centered
         >
             {props.children}
-            <FooterWrapper>
-                <ButtonPrimary onClick={() => {
-                    props.onOk && props.onOk();
-                    props.onClose();
-                }}>OK</ButtonPrimary>
-            </FooterWrapper>
+            {
+                !props.hideFooter && (
+                    <FooterWrapper>
+                        <ButtonPrimary onClick={() => {
+                            props.onOk && props.onOk();
+                            props.onClose();
+                        }}>OK</ButtonPrimary>
+                    </FooterWrapper>
+                )
+            }
         </DogModal>
 
     )

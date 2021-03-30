@@ -121,3 +121,24 @@ export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currenc
 export function isHecoChain(chainId: ChainId | undefined): boolean {
   return chainId === 128 || chainId === 256
 }
+
+export function getLocalCacheOfAddress(address: string) {
+  const localCache = window.localStorage.getItem('farming-cache')
+  let parsedCache: any = {}
+  let result: any = {}
+  if (localCache) {
+    parsedCache = JSON.parse(localCache)
+    result = parsedCache[address.toLowerCase()] ? parsedCache[address.toLowerCase()] : {}
+  }
+  return result
+}
+
+export function setLocalCacheOfAddress(address: string, addressObj: any) {
+  const localCache = window.localStorage.getItem('farming-cache')
+  let parsedCache: any = {}
+  if (localCache) {
+    parsedCache = JSON.parse(localCache)
+  }
+  parsedCache[address.toLowerCase()] = addressObj
+  window.localStorage.setItem('farming-cache', JSON.stringify(parsedCache))
+}

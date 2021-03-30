@@ -1,11 +1,11 @@
 import { ChainId, TokenAmount } from '@uniswap/sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
-
+import ChartsImg from '../../assets/images/nav-icon/charts.png';
 import Logo from '../../assets/svg/logo.png'
 import LogoDark from '../../assets/svg/logo_white.png'
 import { useActiveWeb3React } from '../../hooks'
@@ -14,6 +14,7 @@ import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks
 import { CardNoise } from '../earn/styled'
 import { CountUp } from 'use-count-up'
 import { TYPE, ExternalLink } from '../../theme'
+import { ButtonPrimary } from '../../components/Button';
 
 import { YellowCard } from '../Card'
 import { Moon, Sun, Menu as MenuIcon } from 'react-feather'
@@ -33,6 +34,7 @@ import usePrevious from '../../hooks/usePrevious'
 import { isHecoChain } from 'utils'
 import NavDrawer from './NavDrawer';
 import CommingSoonModal from '../Modal/v2';
+import DogAirDropModal from './DogAirDropModal';
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -66,12 +68,11 @@ const HeaderControls = styled.div`
   align-items: center;
   justify-self: flex-end;
 
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
     flex-direction: row;
     justify-content: space-between;
     justify-self: center;
     width: 100%;
-    max-width: 960px;
     padding: 1rem;
     position: fixed;
     bottom: 0px;
@@ -89,7 +90,7 @@ const HeaderElement = styled.div`
   align-items: center;
   gap: 8px;
 
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
    flex-direction: row-reverse;
     align-items: center;
   `};
@@ -101,7 +102,7 @@ const HeaderElementWrap = styled.div`
 `
 
 const HeaderRow = styled(RowFixed)`
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToSmallMedium`
       width: 100%;
       justify-content: space-between;
   `};
@@ -157,11 +158,24 @@ const DOGWrapper = styled.span`
   }
 `
 
+const HideSmallMedium = styled.span`
+  ${({ theme }) => theme.mediaWidth.upToSmallMedium`
+    display: none;
+  `};
+`;
+
 const HideSmall = styled.span`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: none;
   `};
 `
+const ShowSmallMedium = styled.span`
+  display: none;
+  ${({ theme }) => theme.mediaWidth.upToSmallMedium`
+    display: block;
+  `};
+`
+
 const ShowSmall = styled.span`
   display: none;
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -181,7 +195,7 @@ const NetworkCard = styled(YellowCard)`
     text-overflow: ellipsis;
     flex-shrink: 1;
   `};
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
     background: ${({ theme }) => theme.bg8};
   `};
 `
@@ -316,7 +330,7 @@ const NavIcon = styled(MenuIcon)`
     width: 1.6rem;
     height: 1.6rem;
     color: ${({ theme }) => theme.white};
-    ${({ theme }) => theme.mediaWidth.upToSmall`
+    ${({ theme }) => theme.mediaWidth.upToSmallMedium`
         display: block;
     `};
 `; 
@@ -361,10 +375,30 @@ const CommingSoonButon = ({
     )
 }
 
+const ImgIcon = styled.img`
+    width: 1.3rem;
+    height: 1.3rem;
+    margin-right: 0.5rem;
+    cursor: pointer;
+`;
+
+const DogButton = styled(ButtonPrimary)`
+    padding: 8px 12px;
+    border-radius: 12px;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+        margin-left: 0;
+    `};
+`;
+
+const SwapOrAddLiquidtyPathRegx = /(\/swap$)|(\/add\/.*)/;
+
 export default function Header() {
   const [commingSoonVisible, setCommingSoonVisible] = useState(false);
   const { account, chainId } = useActiveWeb3React()
   const { t, i18n } = useTranslation()
+  const [airdropModalVisible, setAirdropVisible] = useState(false)
+  const location = useLocation();
+  const isSwapOrAddLiquidtyPath = SwapOrAddLiquidtyPathRegx.test(location.pathname)
 
   // TODO: hide something of header, will update on the future
   const hideSomething = true
@@ -401,13 +435,20 @@ export default function Header() {
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <HeaderRow>
-        <Title href=".">
-          <UniIcon>
-            <img width={'48px'} src={darkMode ? LogoDark : Logo} alt="logo" />
-          </UniIcon>
+        <Title href="#">
+          <StyledNavLink 
+              id={`homepage`}
+              to='/homepage'>
+              <UniIcon>
+                <img width={'48px'} src={darkMode ? LogoDark : Logo} alt="logo" />
+              </UniIcon>
+            </StyledNavLink>
         </Title>
-        <HideSmall>
+        <HideSmallMedium>
           <HeaderLinks>
+            <StyledNavLink id={`home-nav`} to={'/homepage'}>
+              {t('homepage')}
+            </StyledNavLink>
             <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
               {t('swap')}
             </StyledNavLink>
@@ -424,7 +465,16 @@ export default function Header() {
             >
               {t('pool')}
             </StyledNavLink>
-            <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('lpmining')}</CommingSoonButon>
+            <StyledNavLink 
+              id={`lp-mining`} 
+              isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/mining')
+              }
+              to={'/mining/lp'}>
+              {t('lpmining')}
+            </StyledNavLink>
+            {/* <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('lpmining')}</CommingSoonButon> */}
             <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('boardRoom')}</CommingSoonButon>
             <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('crossChainSwap')}</CommingSoonButon>
             <StyledExternalLink id={`stake-nav-link`} href={'https://info.dogeswap.com'}>
@@ -449,18 +499,22 @@ export default function Header() {
               </>
             )}
           </HeaderLinks>
-        </HideSmall>
-        <ShowSmall>
+        </HideSmallMedium>
+        <ShowSmallMedium>
           <HeaderLinks>
-            <StyledExternalLink style={{color: 'white'}} id={`stake-nav-link`} href={'https://info.dogeswap.com'}>
-              {t('info')}
-            </StyledExternalLink>
+            {
+              isSwapOrAddLiquidtyPath && (
+                <StyledExternalLink style={{color: 'white'}} id={`stake-nav-link`} href={'https://info.dogeswap.com'}>
+                  <ImgIcon src={ChartsImg} />
+                </StyledExternalLink>
+              )
+            }
             <NavIcon onClick={() => {
               setShowSlider(true);
             }} />
           </HeaderLinks>
           
-        </ShowSmall>
+        </ShowSmallMedium>
         
       </HeaderRow>
       <HeaderControls>
@@ -510,6 +564,13 @@ export default function Header() {
               )}
             </>
           )}
+          <HideSmall>
+            {
+              account && (
+                <DogButton onClick={() => {setAirdropVisible(true)}}>DOG</DogButton>  
+              )
+            }
+          </HideSmall>
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
@@ -520,11 +581,26 @@ export default function Header() {
           </AccountElement>
         </HeaderElement>
         <HeaderElementWrap>
-          <StyledMenuButton onClick={() => toggleDarkMode()}>
-            {darkMode ? <Moon size={20} /> : <Sun size={20} />}
-          </StyledMenuButton>
-          <Menu />
-          {!hideSomething && <LanguageMenu />}
+          <HideSmall>
+              <div style={{display: "flex"}}>
+                <StyledMenuButton onClick={() => toggleDarkMode()}>
+                        {darkMode ? <Moon size={20} /> : <Sun size={20} />}
+                  </StyledMenuButton>
+                  <Menu />
+              </div>
+          </HideSmall>
+          <ShowSmall>
+            {
+              account && (
+                <DogButton onClick={() => {setAirdropVisible(true)}}>DOG</DogButton>  
+              )
+            }
+          </ShowSmall>
+          {!hideSomething && (
+            <>
+                <LanguageMenu />
+            </>
+          )}
         </HeaderElementWrap>
       </HeaderControls>
       <NavDrawer visible={showSlider} onClose={() => {
@@ -533,6 +609,11 @@ export default function Header() {
       <CommingSoonModal visible={commingSoonVisible} title={t('tips')} onClose={() => {setCommingSoonVisible(false)}} >
             <TYPE.black  fontSize={25} textAlign="center">{t('commingSoon')}</TYPE.black>
       </CommingSoonModal>
+      {
+        account && (
+          <DogAirDropModal visible={airdropModalVisible} onClose={() => {setAirdropVisible(false)}} />
+        )
+      }
     </HeaderFrame>
   )
 }

@@ -10,7 +10,7 @@ import LogoDark from '../../assets/svg/logo_white.png';
 import Row from '../Row';
 import { NavLink } from 'react-router-dom'
 import { ExternalLink, TYPE } from '../../theme';
-// import HomeImg from '../../assets/images/nav-icon/home.png';
+import HomeImg from '../../assets/images/nav-icon/home.png';
 import SwapImg from '../../assets/images/nav-icon/swap.png';
 import PoolImg from '../../assets/images/nav-icon/pool.png';
 import BookImg from '../../assets/images/nav-icon/book.png';
@@ -24,7 +24,7 @@ import TelegramImg from '../../assets/images/nav-icon/telegram.png';
 import TwitterImg from '../../assets/images/nav-icon/twitter.png';
 import LanguageImg from '../../assets/images/nav-icon/language.png';
 import exchangeImg from '../../assets/images/nav-icon/exchange.png';
-import Modal from '../../components/Modal/v2';
+import Modal from '../Modal/v2';
 
 interface Props {
     visible: boolean;
@@ -38,7 +38,8 @@ const NavWrapper = styled(Drawer)`
     }
 
     .ant-drawer-content {
-        background: transparent;
+        background: ${({ theme }) => theme.black};
+        height: 100vh;
     }
 
     .ant-drawer-wrapper-body {
@@ -97,7 +98,7 @@ const InnerLink = styled(NavLink)`
 `;
 
 const OutterLink = styled(ExternalLink)`
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: ${({ theme }) => theme.white};
     text-decoration: none;
 `;
@@ -121,17 +122,23 @@ const CommingSoonLink = styled.div`
     font-size: 1rem;
     color: ${({ theme }) => theme.white};
     text-decoration: none;
+
+    &.small {
+      font-size: 0.9rem;
+    }
 `;
 
 const CommingSoonButon = ({
     children,
     onClick,
+    className,
 }: {
     children: React.ReactNode;
     onClick?(): void;
+    className?: string;
 }) => {
     return (
-        <CommingSoonLink onClick={onClick}>{children}</CommingSoonLink>
+        <CommingSoonLink className={className} onClick={onClick}>{children}</CommingSoonLink>
     )
 }
 
@@ -158,26 +165,24 @@ export default function NavDrawer({
         key="slideHeader"
       >
         <LogoWrapper>
-          <LogoImg width="5.6rem" height="3.9rem" src={darkMode ? LogoDark : Logo} alt="logo" />
+          <InnerLink to={'/homepage'}>
+            <LogoImg width="5.6rem" height="3.9rem" src={darkMode ? LogoDark : Logo} alt="logo" />
+          </InnerLink>
         </LogoWrapper>
         <NavLinkWrapper>
-          {/* <NavRow>
-                  <Icon src={HomeImg} />
-                  <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('homepage')}</CommingSoonButon>
-              </NavRow> */}
+          <NavRow>
+            <Icon src={HomeImg} />
+            <InnerLink style={{fontSize: '0.9rem'}} to={'/homepage'}>{t('homepage')}</InnerLink>
+          </NavRow>
           <NavRow>
             <Icon src={LpImg} />
-            <CommingSoonButon
-              onClick={() => {
-                setCommingSoonVisible(true)
-              }}
-            >
-              {t('lpmining')}
-            </CommingSoonButon>
+            <InnerLink style={{fontSize: '0.9rem'}} to={'/mining/lp'}>{t('lpmining')}</InnerLink>
+            {/* <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('lpmining')}</CommingSoonButon> */}
           </NavRow>
           <NavRow>
             <Icon src={PeopleImg} />
             <CommingSoonButon
+              className="small"
               onClick={() => {
                 setCommingSoonVisible(true)
               }}
@@ -223,8 +228,6 @@ export default function NavDrawer({
               {t('audit')}
             </OutterLink>
           </NavRow>
-        </NavLinkWrapper>
-        <NavLinkWrapper>
           <NavRow>
             <Icon src={TelegramImg} />
             <OutterLink href="https://t.me/dogeswap_en">Telegram</OutterLink>

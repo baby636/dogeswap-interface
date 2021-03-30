@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Route, Switch } from 'react-router-dom'
+import { ApolloProvider } from '@apollo/client'
 import styled from 'styled-components'
 import GoogleAnalyticsReporter from '../components/analytics/GoogleAnalyticsReporter'
 import AddressClaimModal from '../components/claim/AddressClaimModal'
@@ -31,14 +32,15 @@ import Swap from './Swap'
 import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from './Swap/redirects'
 import Vote from './Vote'
 import VotePage from './Vote/VotePage'
-import DogeBackgroundImage from '../assets/images/doge-bg.png';
+import DogeBackgroundImage from '../assets/images/dog-bg-2.png';
 import { useDarkModeManager } from '../state/user/hooks'
 // import { ExternalLink } from '../theme'
 // import WechatHelperImg from '../assets/images/wechat_helper.png';
-// import HomePage from './HomePage';
+import HomePage from './HomePage';
 // import BoardRoom from './BoardRoom';
 import MiningTable from './MiningTable';
 import Farm from './Farm';
+import client from '../graphql';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -87,7 +89,7 @@ const DogeImage = styled.div`
   bottom: 0;
   background: url(${DogeBackgroundImage});
   background-position: right;
-  background-size: contain;
+  background-size: auto 100%;
   background-repeat: no-repeat;
   z-index: -1;
 `;
@@ -137,60 +139,69 @@ function TopLevelModals() {
 //   )
 // };
 
+const Desc = styled.p`
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  box-sizing: border-box;
+`
+
 export default function App() {
   const { t } = useTranslation();
   const [darkMode] = useDarkModeManager()
   return (
-    <Suspense fallback={null}>
-      <Route component={GoogleAnalyticsReporter} />
-      <Route component={DarkModeQueryParamReader} />
-      <AppWrapper>
-        <URLWarning />
-        <HeaderWrapper>
-          <Header />
-        </HeaderWrapper>
-        <BodyWrapper>
-          <Introduce>
-            {!darkMode && <DogeImage />}
-            <p style={{ maxWidth: 900, margin: '20px auto' }}>{t('platformInfo')}</p>
-          </Introduce>
-          <Popups />
-          <Polling />
-          <TopLevelModals />
-          <Web3ReactManager>
-            <Switch>
-              <Route exact strict path="/swap" component={Swap} />
-              <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
-              <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
-              <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
-              <Route exact strict path="/find" component={PoolFinder} />
-              <Route exact strict path="/pool" component={Pool} />
-              <Route exact strict path="/uni" component={Earn} />
-              <Route exact strict path="/vote" component={Vote} />
-              <Route exact strict path="/create" component={RedirectToAddLiquidity} />
-              <Route exact path="/add" component={AddLiquidity} />
-              <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-              <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-              <Route exact path="/create" component={AddLiquidity} />
-              <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
-              <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
-              <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
-              <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
-              <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
-              <Route exact strict path="/migrate/v1" component={MigrateV1} />
-              <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
-              <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
-              <Route exact strict path="/vote/:id" component={VotePage} />
-              {/* <Route exact path="/homepage" component={HomePage} /> */}
-              {/* <Route exact path="/boardroom" component={BoardRoom} /> */}
-              <Route exact path="/farm" component={Farm} />
-              <Route exact path="/mining-table/:type" component={MiningTable} />
-              <Route component={RedirectPathToSwapOnly} />
-            </Switch>
-          </Web3ReactManager>
-          <Marginer />
-        </BodyWrapper>
-      </AppWrapper>
-    </Suspense>
+    <ApolloProvider client={client}>
+      <Suspense fallback={null}>
+        <Route component={GoogleAnalyticsReporter} />
+        <Route component={DarkModeQueryParamReader} />
+        <AppWrapper>
+          <URLWarning />
+          <HeaderWrapper>
+            <Header />
+          </HeaderWrapper>
+          <BodyWrapper>
+            <Introduce>
+              {!darkMode && <DogeImage />}
+              <Desc>{t('platformInfo')}</Desc>
+            </Introduce>
+            <Popups />
+            <Polling />
+            <TopLevelModals />
+            <Web3ReactManager>
+              <Switch>
+                <Route exact strict path="/swap" component={Swap} />
+                <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
+                <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
+                <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
+                <Route exact strict path="/find" component={PoolFinder} />
+                <Route exact strict path="/pool" component={Pool} />
+                <Route exact strict path="/uni" component={Earn} />
+                <Route exact strict path="/vote" component={Vote} />
+                <Route exact strict path="/create" component={RedirectToAddLiquidity} />
+                <Route exact path="/add" component={AddLiquidity} />
+                <Route exact path="/add/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/add/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+                <Route exact path="/create" component={AddLiquidity} />
+                <Route exact path="/create/:currencyIdA" component={RedirectOldAddLiquidityPathStructure} />
+                <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
+                <Route exact strict path="/remove/v1/:address" component={RemoveV1Exchange} />
+                <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
+                <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
+                <Route exact strict path="/migrate/v1" component={MigrateV1} />
+                <Route exact strict path="/migrate/v1/:address" component={MigrateV1Exchange} />
+                <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
+                <Route exact strict path="/vote/:id" component={VotePage} />
+                <Route exact path="/homepage" component={HomePage} />
+                {/* <Route exact path="/boardroom" component={BoardRoom} /> */}
+                <Route exact path="/farm/:type/:pid/:pairOrTokenAddress" component={Farm} />
+                <Route exact path="/mining/:type" component={MiningTable} />
+                <Route component={RedirectPathToSwapOnly} />
+              </Switch>
+            </Web3ReactManager>
+            <Marginer />
+          </BodyWrapper>
+        </AppWrapper>
+      </Suspense>
+    </ApolloProvider>
   )
 }
