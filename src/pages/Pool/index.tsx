@@ -156,9 +156,9 @@ export default function Pool() {
               )
             }
             <AutoColumn gap="md">
-              <RowBetween>
+              {/* <RowBetween>
                 <TYPE.black fontWeight={500}>{t('lpRewards')}</TYPE.black>
-              </RowBetween>
+              </RowBetween> */}
               <RowBetween>
                 <TYPE.lightGray fontSize={14}>{t('lpRewardsDesc')}</TYPE.lightGray>
               </RowBetween>

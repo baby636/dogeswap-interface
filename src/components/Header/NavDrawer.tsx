@@ -69,7 +69,7 @@ const LogoImg = styled.img`
 const NavLinkWrapper = styled.div`
     width: 100%;
     box-sizing: border-box;
-    padding: 0.6rem 1.7rem;
+    padding: 0.5rem 1.7rem;
     border-top: 1px solid ${({ theme }) => theme.lightGrey};
     background: ${({ theme }) => theme.bg8};
 `;
@@ -82,7 +82,7 @@ const LanguageThemeWrapper = styled.div`
 `;
 
 const NavRow = styled(Row)`
-    margin: 0.8rem 0;
+    margin: 0.5rem 0;
 `;
 
 const Icon = styled.img`
@@ -181,14 +181,7 @@ export default function NavDrawer({
           </NavRow>
           <NavRow>
             <Icon src={PeopleImg} />
-            <CommingSoonButon
-              className="small"
-              onClick={() => {
-                setCommingSoonVisible(true)
-              }}
-            >
-              {t('boardRoom')}
-            </CommingSoonButon>
+            <InnerLink style={{fontSize: '0.9rem'}} to={'/board'}>{t('boardRoom')}</InnerLink>
           </NavRow>
         </NavLinkWrapper>
         <NavLinkWrapper>

@@ -694,12 +694,100 @@
       "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x80898823fdd0b961c2e9809ef75b673e7f4aa02d.png"
     },
     {
-      "name": "GameDao Vaults",
-      "address": "0x9193754ba76c2de16bec8be02590821cc9798acc",
-      "symbol": "GDB",
+      "name": "Heco Good Bank",
+      "address": "0xfe04c1d41502ac0d664b1b41dc23e1a4803188e2",
+      "symbol": "HGB",
       "decimals": 18,
       "chainId": 128,
-      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x9193754ba76c2de16bec8be02590821cc9798acc.png"
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xfe04c1d41502ac0d664b1b41dc23e1a4803188e2.png"
+    },
+    {
+      "name": "Lucky Finance",
+      "address": "0x65f4251044851a98b191f6dbbcf3e4780cdd954c",
+      "symbol": "LKFI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x65f4251044851a98b191f6dbbcf3e4780cdd954c.png"
+    },
+    {
+      "name": "TokenPocket Token",
+      "address": "0x9ef1918a9bee17054b35108bd3e2665e2af1bb1b",
+      "symbol": "TPT",
+      "decimals": 4,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x9ef1918a9bee17054b35108bd3e2665e2af1bb1b.png"
+    },
+    {
+      "name": "Dogeswap Token",
+      "address": "0x099626783842d35c221e5d01694c2b928eb3b0ad",
+      "symbol": "DOG",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x099626783842d35c221e5d01694c2b928eb3b0ad.png"
+    },
+    {
+      "name": "CON",
+      "address": "0xeef1324343ca7bf6e743e21dd9e92dfa4efc3a56",
+      "symbol": "CON",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xeef1324343ca7bf6e743e21dd9e92dfa4efc3a56.png"
+    },
+    {
+      "name": "BIKI Token",
+      "address": "0x747488e6cc6b91c802f4c31e13c398e78171bdee",
+      "symbol": "BIKI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x747488e6cc6b91c802f4c31e13c398e78171bdee.png"
+    },
+    {
+      "name": "Positional Warfare Token",
+      "address": "0x9ffa142b9c7726e819bb637d4cb70f02224b2185",
+      "symbol": "PWT",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x9ffa142b9c7726e819bb637d4cb70f02224b2185.png"
+    },
+    {
+      "name": "Heco-Peg DOGE Token",
+      "address": "0x40280e26a572745b1152a54d1d44f365daa51618",
+      "symbol": "DOGE",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x40280e26a572745b1152a54d1d44f365daa51618.png"
+    },
+    {
+      "name": "Poly-Peg FEI",
+      "address": "0x485cdbff08a4f91a16689e73893a11ae8b76af6d",
+      "symbol": "FEI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x485cdbff08a4f91a16689e73893a11ae8b76af6d.png"
+    },
+    {
+      "name": "czz-heco",
+      "address": "0x112489c758d405874e9ece0586fd50b315216fca",
+      "symbol": "HCZZ",
+      "decimals": 8,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x112489c758d405874e9ece0586fd50b315216fca.png"
+    },
+    {
+      "name": "HKR",
+      "address": "0xa74b0514b403bdb573bf22df0062d43f6498a164",
+      "symbol": "HKR",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0xa74b0514b403bdb573bf22df0062d43f6498a164.png"
+    },
+    {
+      "name": "Hai Stablecoin",
+      "address": "0x7663bc3ae9858cae71722aedee364e125c278bdf",
+      "symbol": "HAI",
+      "decimals": 18,
+      "chainId": 128,
+      "logoURI": "https://graph.dogeswap.com/static/images/tokens/0x7663bc3ae9858cae71722aedee364e125c278bdf.png"
     }
   ]
 }

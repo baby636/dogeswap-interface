@@ -1,10 +1,11 @@
-const CACHE_KEY = 'dog-token-info';
+const CACHE_KEY = 'dog-data';
 
-export function getLocalCacheOfDogTokenInfo() {
+export function getLocalCacheOfDogData() {
     const localCache = window.localStorage.getItem(CACHE_KEY)
     let parsedCache: any = {
-      price: 0,
-      decimals: 18,
+        dogTotalSupply: 0,
+        dogDestory: 0,
+        dogDestoryAmount: 0,
     };
     if (localCache) {
       parsedCache = JSON.parse(localCache)
@@ -12,7 +13,7 @@ export function getLocalCacheOfDogTokenInfo() {
     return parsedCache;
   }
   
-export function setLocalCacheOfDogTokenInfo(data: any) {
+export function setLocalCacheOfDogData(data: any) {
     if (data) {
         window.localStorage.setItem(CACHE_KEY, JSON.stringify(data))
     }

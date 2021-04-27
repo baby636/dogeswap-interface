@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { QuestionCircleOutlined } from '@ant-design/icons'
 import AppBody from '../AppBody';
 import Row from '../../components/Row';
-import { message } from 'antd';
+import { message, Tooltip } from 'antd';
 import { ButtonLight, ButtonPrimary } from '../../components/Button';
 import { LinkStyledButton, TYPE } from '../../theme';
 import styled from 'styled-components';
@@ -421,7 +422,7 @@ export default function Farm() {
             </Card>
             <Card>
               <RowCenter>
-                <TYPE.black fontSize={32}>{isSingle ? t('tokenStaked') : `${poolName} ${t('staked')}`}</TYPE.black>
+                <TYPE.black fontSize={32}>{isSingle ? t('tokenStaked') : `LP ${t('staked')}`}</TYPE.black>
               </RowCenter>
               <RowCenter>
                 <TYPE.black fontSize={22} fontWeight={300}>
@@ -448,7 +449,7 @@ export default function Farm() {
                         setDepositUnStakedModalVisible(true)
                       }}
                     >
-                      {t(stakeDisabled ? 'insufficientBalance' : 'staked')}
+                      {t(stakeDisabled ? 'insufficientBalance' : 'stake')}
                     </ButtonPrimary>
                     {unStakeEnable && (
                       <MinusIcon
@@ -482,12 +483,15 @@ export default function Farm() {
                   <>
                     <BorderRow className="borderRow">
                       <Row style={{ flexDirection: 'column', flexGrow: 0, width: 'auto', alignItems: 'flex-start' }}>
-                        <TYPE.black fontSize={20} fontWeight={300} style={{ paddingRight: '1rem' }}>
-                          {t('24hoursFee')}
-                        </TYPE.black>
-                        <TYPE.black fontSize={14} fontWeight={300}>
-                          {startDate.format('MM.DD HH:mm')} - {endDate.format('MM.DD HH:mm')}
-                        </TYPE.black>
+                        <Tooltip placement="top" title={t('feeTip')}>
+                          <TYPE.black fontSize={20} fontWeight={300} style={{ paddingRight: '1rem' }}>
+                            <QuestionCircleOutlined />
+                            &nbsp;{t('24hoursFee')}
+                          </TYPE.black>
+                          <TYPE.black fontSize={14} fontWeight={300}>
+                            {startDate.format('MM.DD HH:mm')} - {endDate.format('MM.DD HH:mm')}
+                          </TYPE.black>
+                        </Tooltip>
                       </Row>
                       <SmallMoneyText fontSize={20}>${fee}</SmallMoneyText>
                     </BorderRow>

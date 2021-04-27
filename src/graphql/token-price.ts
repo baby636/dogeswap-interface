@@ -1,7 +1,10 @@
 import { gql } from '@apollo/client';
 import client from './index';
 
-export function getTokenPrice(address: string) {
+export function getTokenPrice(address: string): Promise<{
+    price: number,
+    decimals: number
+}> {
     return new Promise((resolve, reject) => {
         client
             .query({
@@ -18,7 +21,8 @@ export function getTokenPrice(address: string) {
                             htPrice
                         }
                     }
-                `
+                `,
+                fetchPolicy: 'network-only'
             })
             .then(res => {
                 const {data} = res;

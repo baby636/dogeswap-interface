@@ -26,9 +26,10 @@ export interface PoolCaculateData {
     address?: number,
     poolType: number,
     allocPoint: number,
+    caculated: boolean;
 }
 
-export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
+export default function useGetPoolInfoWithPairOrTokenPrice(APYConnectedInfo: any, poolContract: any) {
     const { t } = useTranslation();
     const { fetchPid } = useGetPidOfPool(poolContract);
     const { fetchPoolInfo } = useGetPoolInfo(poolContract);
@@ -68,6 +69,7 @@ export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
                     allocPoint: 1,
                     address: 0,
                     ...itemCache,
+                    caculated: false,
                 }
 
                 if (!isLp) {
@@ -104,10 +106,17 @@ export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
       let poolInfos: PoolInfo = {}
       let poolInfoData = []
       const dogPrice = dogInfo ? dogInfo.price : 0
+      const lp1yEarned = ((24 * 60 * 60) / 3) * (APYConnectedInfo.DOGPerBlock / 1e18) * (APYConnectedInfo.LP_SHARE / 100) * 365
+      const single1yEarned = ((24 * 60 * 60) / 3) * (APYConnectedInfo.DOGPerBlock / 1e18) * (APYConnectedInfo.SINGLE_SHARE / 100) * 365
       for (let i = 0; i < poolData.length; i++) {
         const item = poolData[i]
         const isLp = item.poolType !== 0
         const poolInfo = await getPoolInfoByAddress(item.id, isLp)
+        if (poolInfo.poolType === '1') {
+          poolInfo.earned365 = new BigNumber((poolInfo.allocPoint / APYConnectedInfo.lpAllocPoints) * lp1yEarned)
+        } else {
+          poolInfo.earned365 = new BigNumber((poolInfo.allocPoint / APYConnectedInfo.singleAllocPoints) * single1yEarned)
+        }
         const itemCache = getLocalCacheOfPoolCaculateByAddress(item.id);
         let saveItem: PoolCaculateData = {
           id: item.id,
@@ -130,6 +139,9 @@ export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
             .times(poolInfo.price)
           saveItem.realTvl = realTvl.toNumber()
           saveItem.tvl = `$${realTvl.toFixed(2)}`
+        } else {
+          saveItem.realTvl = 0;
+          saveItem.tvl = '0';
         }
 
         if (
@@ -140,12 +152,14 @@ export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
           !(new BigNumber(saveItem.realTvl)).eq(new BigNumber(0))
         ) {
           const apy = (poolInfo.earned365 as BigNumber)
-            .dividedBy(new BigNumber(10).pow(18))
             .times(new BigNumber(dogPrice))
             .dividedBy(saveItem.realTvl)
             .times(100)
           saveItem.realApy = apy.toNumber()
           saveItem.apy = `${apy.toFixed(2)}%`
+        } else {
+          saveItem.realApy = 0;
+          saveItem.apy = '0';
         }
 
         if (poolInfo && poolInfo.allocPoint) {
@@ -163,6 +177,7 @@ export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
           saveItem.tokenName1 = item.pair.token1.symbol
         }
 
+        saveItem.caculated = true;
         poolInfoData.push(saveItem)
         setLocalCacheOfPoolCaculateByAddress(item.id, saveItem);
         poolInfos[item.id] = poolInfo
@@ -172,10 +187,10 @@ export default function useGetPoolInfoWithPairOrTokenPrice(poolContract: any) {
     }
 
     useEffect(() => {
-      if (poolContract && poolData && poolData.length) {
+      if (APYConnectedInfo && poolContract && poolData && poolData.length) {
         initDataSourceWithPoolInfo()
       }
-    }, [poolContract, dogInfo, poolData])
+    }, [APYConnectedInfo, poolContract, dogInfo, poolData])
 
     async function getDogPrice() {
         const info = await getPrice(TOKEN_ADDRESS[TOKEN.DOG], false);

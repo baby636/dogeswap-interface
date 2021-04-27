@@ -37,7 +37,7 @@ import { useDarkModeManager } from '../state/user/hooks'
 // import { ExternalLink } from '../theme'
 // import WechatHelperImg from '../assets/images/wechat_helper.png';
 import HomePage from './HomePage';
-// import BoardRoom from './BoardRoom';
+import Board from './Board';
 import MiningTable from './MiningTable';
 import Farm from './Farm';
 import client from '../graphql';
@@ -192,7 +192,7 @@ export default function App() {
                 <Route exact strict path="/uni/:currencyIdA/:currencyIdB" component={Manage} />
                 <Route exact strict path="/vote/:id" component={VotePage} />
                 <Route exact path="/homepage" component={HomePage} />
-                {/* <Route exact path="/boardroom" component={BoardRoom} /> */}
+                <Route exact path="/board" component={Board} />
                 <Route exact path="/farm/:type/:pid/:pairOrTokenAddress" component={Farm} />
                 <Route exact path="/mining/:type" component={MiningTable} />
                 <Route component={RedirectPathToSwapOnly} />

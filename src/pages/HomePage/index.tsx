@@ -12,15 +12,18 @@ import BoardPanelImg from '../../assets/images/panel.png';
 // import DogsBackground from '../../assets/images/dog.png';
 import CycleImg from '../../assets/images/cycle.png';
 import RewardsImg from '../../assets/images/rewards.png';
-import SlowMistImg from '../../assets/images/slow-mist.png';
+// import SlowMistImg from '../../assets/images/slow-mist.png';
+import SlowMistDark from '../../assets/images/slowmist-d.png';
+import SlowMistLight from '../../assets/images/slowmist-l.png';
 import ChatImg from '../../assets/images/chat.png';
-// import { useDarkModeManager } from '../../state/user/hooks';
+import { useDarkModeManager } from '../../state/user/hooks';
 import { TYPE } from '../../theme';
 import { AutoColumn } from '../../components/Column';
 import Row, { RowBetween } from '../../components/Row';
 import initWeb3 from '../../hooks/init-web3';
 import { useActiveWeb3React } from '../../hooks';
 import {getDogContract, getPoolContract}from '../../data/farm';
+import useGetAPYConnectMinerInfo from '../../hooks/farm/useGetAPYConnectMinerInfo'
 import useGetPoolInfoWithTokenPrice from '../../hooks/use-get-poolInfo';
 import {getGlobalData} from '../../graphql/info-data/api';
 import { BigNumber } from 'bignumber.js';
@@ -29,6 +32,8 @@ import Value from '../../components/Value';
 import useGetBalance from '../../hooks/farm/useGetLPTokenBalance';
 import { getLocalCacheOfGlobalData, setLocalCacheOfGlobalData } from '../../utils/globalDataCache';
 import { getLocalCacheOfPlatformTvl, setLocalCacheOfPlatformTvl } from '../../utils/platformTvlCache';
+import useGetBoardData from '../../hooks/doge-stake/useGetBoardData';
+import useGetDogData from '../../hooks/homepage/useGetDogData';
 
 const Card = styled.div`
     position: relative;
@@ -36,7 +41,6 @@ const Card = styled.div`
     width: 100%;
     border-radius: 30px;
     padding: 1rem;
-    padding-top: 0rem;
 `;
 
 const BoardRoomWrapper = styled(Card)`
@@ -48,7 +52,7 @@ const PlatformTvl = styled.div`
     line-height: 1.5rem;
     width: 100%;
     color: ${({theme}) => theme.bg12};
-    background: ${({theme}) => theme.bg1};
+    background: ${({theme}) => theme.white};
     font-size: 1rem;
     border-radius: 1rem;
     text-align: center;
@@ -232,10 +236,49 @@ const TransValue = styled(TYPE.black)`
     white-space: nowrap;
 `;
 
+const DogDataWrapper = styled(Card)`
+  position: relative;
+    width: 100%;
+    padding: 1.6rem 0.8rem;
+    border-radius: 30px;
+    margin-top: 0.6rem;
+    z-index: 0;
+    color: ${({ theme }) => theme.white};
+    overflow: hidden;
+    box-shadow: ${({ theme }) => theme.shadow2};
+    background-color: ${({ theme }) => theme.bg1};
+`;
+
+const DogDataTitle = styled(TYPE.black)`
+    padding-bottom: 1rem;
+    border-bottom: 1px solid ${({theme}) => theme.borderColor3};
+`;
+
+const DogDataRow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 0rem;
+    flex-wrap: wrap;
+`;
+
+const DogDataLabel = styled(TYPE.black)`
+    padding-right:1rem;
+    flex-shrink: 0;
+    flex-grow: 0;
+`;
+
+const DogDataValue = styled(TYPE.black)`
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+`;
+
 export default function Mining() {
     const theme = useContext(ThemeContext);
     const history = useHistory();
-    // const [darkMode] = useDarkModeManager();
+    const [darkMode] = useDarkModeManager();
     const { t } = useTranslation();
     const hideSomething = true;
     const web3Provider = useActiveWeb3React();
@@ -259,7 +302,7 @@ export default function Mining() {
         totalLiquidityUSD: '',
         ...getLocalCacheOfGlobalData(),
     });
-    const [platformTvl, setPlatformTvl] = useState(getLocalCacheOfPlatformTvl());
+    const [platformTvl, setPlatformTvl] = useState(Number(getLocalCacheOfPlatformTvl()));
     const toggleWalletModal = useWalletModalToggle();
     // 代币合约
     const [dogContract, setDogContract] = useState<any>(null);
@@ -267,11 +310,29 @@ export default function Mining() {
     const userBalanceOfDog = useGetBalance(dogContract, account || '', false);
     // const platformBalanceOfDog = useGetBalance(dogContract, minerContract ? minerContract._address : '', false);
 
-    // const APYConnectedInfo = useGetAPYConnectMinerInfo(minerContract);
+    // doge data
     const {
-        poolCaculateInfo,
-        dogInfo,
-    } = useGetPoolInfoWithTokenPrice(minerContract);
+      dogTotalSupply,
+      dogDestory,
+      dogDestoryAmount,
+      dogPerBlock,
+    } = useGetDogData({
+      web3,
+      chainId,
+    })
+
+    const {
+      boardAPY,
+      boardTvl,
+      // 本周待奖励金额
+      weekPendingRewards,
+    } = useGetBoardData({
+      web3,
+      chainId,
+    })
+
+    const APYConnectedInfo = useGetAPYConnectMinerInfo(web3, minerContract)
+    const { poolCaculateInfo, dogInfo } = useGetPoolInfoWithTokenPrice(APYConnectedInfo, minerContract)
     // contract init
     useEffect(() => {
         if (web3 && chainId) {
@@ -366,8 +427,9 @@ export default function Mining() {
     // }, [platformBalanceOfDog, dogInfo])
 
     useEffect(() => {
-        let amount = new BigNumber(infoData.totalLiquidityUSD || 0);
-        if (poolCaculateInfo.length > 0) {
+        let amount = new BigNumber(infoData.totalLiquidityUSD || 0).plus(boardTvl);
+        const isPoolCaculatedComplete = poolCaculateInfo && poolCaculateInfo.length === poolCaculateInfo.filter((item) => item.caculated).length;
+        if (isPoolCaculatedComplete && poolCaculateInfo.length > 0) {
             for (let i = 0, len = poolCaculateInfo.length; i < len; i++) {
                 const pool = poolCaculateInfo[i];
                 if (pool.poolType === 0) {
@@ -380,7 +442,7 @@ export default function Mining() {
               setPlatformTvl(res)
             }
         }
-    }, [poolCaculateInfo, infoData.totalLiquidityUSD])
+    }, [poolCaculateInfo, infoData.totalLiquidityUSD, boardTvl])
 
     const mintTokenPrice = useMemo(() => {
         if (infoData.mintDogTokens && dogInfo && dogInfo.price) {
@@ -389,225 +451,277 @@ export default function Mining() {
         return 0;
     }, [infoData.mintDogTokens, dogInfo]);
 
+    const rebuyFee = useMemo(() => {
+      const reyBuyDestory = infoData ? infoData.rebuyDestory : 0;
+
+      return reyBuyDestory - (weekPendingRewards || 0) - (dogDestoryAmount || 0);
+    }, [infoData, weekPendingRewards, dogDestoryAmount])
+
     return (
-        <AppBody style={{background: 'transparent', boxShadow: 'none'}}>
-            <BoardRoomWrapper style={{paddingTop: '0.5rem'}}>
-                <PlatformTvl>
-                    {t('platformTvl')}<br/><span>$</span>
-                { platformTvl ? <Value value={platformTvl} /> : <span>--</span>}
-                </PlatformTvl>
-                <BoardRoomItemWapper>
-                    <BoardItemImage src={BoardPriceImg} />
-                    <NormalText>{t('currentPrice')}</NormalText>
-                    <BoardNumber>$<Value value={dogInfo ? dogInfo.price : 0} /></BoardNumber>
-                </BoardRoomItemWapper>
-                <BoardRoomItemWapper>
-                    <BoardItemImage src={BoardWalletImg} />
-                    <NormalText>{t('dogBalance')}</NormalText>
-                    <BoardNumber>
-                        {
-                            !account ? (
-                                <View onClick={toggleWalletModal}>{t('view')}</View>
-                            ) : (
-                                <>
-                                    $<Value value={dogBalanceAmount} />
-                                </>
-                            )
-                        }
-                    </BoardNumber>
-                </BoardRoomItemWapper>
-                {/* <BoardRoomItemWapper>
+      <AppBody style={{ background: 'transparent', boxShadow: 'none' }}>
+        <BoardRoomWrapper>
+          <PlatformTvl>
+            {t('platformTvl')}
+            <br />
+            <span>$</span>
+            {platformTvl ? <Value value={platformTvl} /> : <span>--</span>}
+          </PlatformTvl>
+          <BoardRoomItemWapper>
+            <BoardItemImage src={BoardPriceImg} />
+            <NormalText>{t('currentPrice')}</NormalText>
+            <BoardNumber>
+              $<Value value={dogInfo ? dogInfo.price : 0} />
+            </BoardNumber>
+          </BoardRoomItemWapper>
+          <BoardRoomItemWapper>
+            <BoardItemImage src={BoardWalletImg} />
+            <NormalText>{t('dogBalance')}</NormalText>
+            <BoardNumber>
+              {!account ? (
+                <View onClick={toggleWalletModal}>{t('view')}</View>
+              ) : (
+                <>
+                  $<Value value={dogBalanceAmount} />
+                </>
+              )}
+            </BoardNumber>
+          </BoardRoomItemWapper>
+          {/* <BoardRoomItemWapper>
                     <BoardItemImage src={BoardMoneyImg} />
                     <NormalText>{t('pendingRewards')}</NormalText>
                     <BoardNumber>$<Value value={platformDogBalanceAmount} /></BoardNumber>
                 </BoardRoomItemWapper> */}
-                <BoardRoomItemWapper>
-                    <BoardItemImage src={BoardMoneyImg} />
-                    <NormalText>{t('currentOutput')}</NormalText>
-                    <BoardNumber><Value value={infoData.mintDogTokens} />DOG</BoardNumber>
-                </BoardRoomItemWapper>
-                <BoardRoomItemWapper>
-                    <BoardItemImage src={BoardPanelImg} />
-                    <NormalText>{t('cuarrentMarketOutput')}</NormalText>
-                    <BoardNumber>$<Value value={mintTokenPrice} /></BoardNumber>
-                </BoardRoomItemWapper>
-                <BoardRoomItemWapper>
-                    <BoardItemImage src={BoardMoneyImg} />
-                    <NormalText>{t('totalRepurchaseDestruction')}</NormalText>
-                    <BoardNumber>$<Value value={infoData.rebuyDestory} /></BoardNumber>
-                </BoardRoomItemWapper>
-                {/* <BoardRoomItemWapper>
+          <BoardRoomItemWapper>
+            <BoardItemImage src={BoardMoneyImg} />
+            <NormalText>{t('currentOutput')}</NormalText>
+            <BoardNumber>
+              <Value value={infoData.mintDogTokens} />
+              DOG
+            </BoardNumber>
+          </BoardRoomItemWapper>
+          <BoardRoomItemWapper>
+            <BoardItemImage src={BoardPanelImg} />
+            <NormalText>{t('cuarrentMarketOutput')}</NormalText>
+            <BoardNumber>
+              $<Value value={mintTokenPrice} />
+            </BoardNumber>
+          </BoardRoomItemWapper>
+          <BoardRoomItemWapper>
+            <BoardItemImage src={BoardMoneyImg} />
+            <NormalText>{t('totalRepurchaseDestruction')}</NormalText>
+            <BoardNumber>
+              $<Value value={rebuyFee} />
+            </BoardNumber>
+          </BoardRoomItemWapper>
+          {/* <BoardRoomItemWapper>
                     <BoardItemImage src={BoardChartsImg} />
                     <NormalText>{t('realTimeDeflationRate')}</NormalText>
                     <BoardNumber>$8.88</BoardNumber>
                 </BoardRoomItemWapper> */}
-               {
-                   !hideSomething && (
-                        <BoardRoomButton>{t('boardRoom')}</BoardRoomButton>
-                   )
-               }
-            </BoardRoomWrapper>
-            {
-                !hideSomething && (
-                    <TableWrapper>
-                        <BoradTalbeTitle><span>{t('boardRoom')}</span><span>{t('more')} &gt;</span></BoradTalbeTitle>
-                        <TableBody>
-                            <TableRow style={{border: 'none'}}>
-                                <TableColumn style={{fontWeight: 'bold'}}>{t('staked')}</TableColumn>
-                                <TableColumn style={{fontWeight: 'bold', textAlign:'center'}}>{t('earned')}</TableColumn>
-                                <TableColumn style={{fontWeight: 'bold', textAlign:'right'}}>APY</TableColumn>
-                            </TableRow>
-                            <TableRow>
-                                <TableColumn>FILDA/HUSD</TableColumn>
-                                <TableColumn style={{textAlign: 'center'}}>DOG</TableColumn>
-                                <TableColumn style={{textAlign: 'right'}}>100%</TableColumn>                    
-                            </TableRow>
-                            <TableRow>
-                                <TableColumn>FILDA/HUSD</TableColumn>
-                                <TableColumn style={{textAlign: 'center'}}>DOG</TableColumn>
-                                <TableColumn style={{textAlign: 'right'}}>100%</TableColumn>                    
-                            </TableRow>
-                            <TableRow>
-                                <TableColumn>FILDA/HUSD</TableColumn>
-                                <TableColumn style={{textAlign: 'center'}}>DOG</TableColumn>
-                                <TableColumn style={{textAlign: 'right'}}>100%</TableColumn>                    
-                            </TableRow>
-                            <TableRow>
-                                <TableColumn>FILDA/HUSD</TableColumn>
-                                <TableColumn style={{textAlign: 'center'}}>DOG</TableColumn>
-                                <TableColumn style={{textAlign: 'right'}}>100%</TableColumn>
-                            </TableRow>
-                        </TableBody>
-                    </TableWrapper>
-                )
-            }
-            {
-                !hideSomething && (
-                    <>
-                        <SummaryCardWrapper>
-                            {/* {!darkMode && (<SummaryCardImg />)} */}
-                            <AutoColumn gap="md">
-                                <RowBetween>
-                                    <TYPE.white fontSize={18}>{t('currentOutput')}</TYPE.white>
-                                </RowBetween>
-                                <RowBetween>
-                                    <TYPE.white fontSize={32}><Value value={infoData.mintDogTokens} /></TYPE.white>
-                                </RowBetween>
-                            </AutoColumn>
-                        </SummaryCardWrapper>
-                        <SummaryCardWrapper>
-                            {/* {!darkMode && (<SummaryCardImg />)} */}
-                            <AutoColumn gap="md">
-                                <RowBetween>
-                                    <TYPE.white fontSize={18}>{t('cuarrentMarketOutput')}</TYPE.white>
-                                </RowBetween>
-                                <RowBetween>
-                                    <TYPE.white fontSize={32}>$<Value value={mintTokenPrice} /></TYPE.white>
-                                </RowBetween>
-                            </AutoColumn>
-                        </SummaryCardWrapper>
-                    </>
-                )
-            }
-            <TableWrapper>
-                <BoradTalbeTitle style={{background: theme.black}}>
-                    <span>{t('lpmining')}</span>
-                    <span 
-                        style={{
-                            cursor: 'pointer'
-                        }} 
-                        onClick={() => {
-                            history.push('/mining/lp');
-                        }}
-                    >{t('more')} &gt;</span>
-                </BoradTalbeTitle>
-                <TableBody>
-                    <TableRow style={{border: 'none'}}>
-                        <TableColumn style={{fontWeight: 'bold'}}>{t('staked')}</TableColumn>
-                        <TableColumn style={{fontWeight: 'bold', textAlign:'center'}}>{t('earned')}</TableColumn>
-                        <TableColumn style={{fontWeight: 'bold', textAlign:'right'}}>APY</TableColumn>
-                    </TableRow>
-                    {
-                        pools.length ? pools.map((item, index) => (
-                            <TableRow key={index}>
-                                <TableColumn>{`${item.tokenName0}${item.tokenName1 && `/${item.tokenName1}`}`}</TableColumn>
-                                <TableColumn style={{textAlign: 'center'}}>DOG</TableColumn>
-                                <TableColumn style={{textAlign: 'right'}}><Value value={item.realApy} />%</TableColumn>                    
-                            </TableRow>
-                        )) : (
-                            <TableRow>
-                                <TableColumn />
-                                <TableColumn style={{textAlign: 'center'}}>{t('caculating')}</TableColumn>
-                                <TableColumn style={{textAlign: 'right'}} />                    
-                            </TableRow>
-                        )
-                    }
-                </TableBody>
-            </TableWrapper>
-            <FeeWrapper>
-                <FeeRow>
-                    <TransLabel fontSize={16}>{t('24hoursTrans')}</TransLabel>
-                    <TransValue fontSize={18}>≈$<Value value={infoData.amountOf24h} /></TransValue>
-                </FeeRow>
-                <FeeRow style={{borderBottom: 'none'}}>
-                    <TransLabel fontSize={16}>{t('totalTrans')}</TransLabel>
-                    <TransValue fontSize={18}>≈$<Value value={infoData.totalAmount} /></TransValue>
-                </FeeRow>
-            </FeeWrapper>
-            <FeeWrapper>
-                <FeeRow>
-                    <TransLabel fontSize={16}>{t('24hoursFee')}</TransLabel>
-                    <TransValue fontSize={18}>≈$<Value value={infoData.feeOf24h} /></TransValue>
-                </FeeRow>
-                <FeeRow style={{borderBottom: 'none'}}>
-                    <TransLabel fontSize={16}>{t('totalFee')}</TransLabel>
-                    <TransValue fontSize={18}>≈$<Value value={infoData.totalFee} /></TransValue>
-                </FeeRow>
-            </FeeWrapper>
-            <UseCaseWrapper>
-                <AutoColumn gap="md" justify="center">
-                    <RowCenter>
-                        <TYPE.black fontSize={26}>{t('dogUseSenarios')}</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <UseCaseImage src={CycleImg}/>
-                    </RowCenter>
-                    <RowCenter>
-                    <TYPE.black fontSize={20} fontWeight={300}>{t('repurchase')}</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <TYPE.black fontSize={22} fontWeight={300}>{t('repurchaseAndDestory')}</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <UseCaseImage src={RewardsImg} style={{width: '62px', height: '70px'}}  />
-                    </RowCenter>
-                    <RowCenter>
-                    <TYPE.black fontSize={20} fontWeight={300}>{t('rewards')}</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <TYPE.black fontSize={22} fontWeight={300}>{t('rewardsToPeople')}</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <UseCaseImage src={ChatImg} style={{width: '60px', height: '58px'}}  />
-                    </RowCenter>
-                    <RowCenter>
-                    <TYPE.black fontSize={20} fontWeight={300}>DAO</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <TYPE.black fontSize={22} fontWeight={300}>{t('communityVote')}</TYPE.black>
-                    </RowCenter>
-                </AutoColumn>
-            </UseCaseWrapper>
-            <UseCaseWrapper>
-                <AutoColumn gap="md" justify="center">
-                    <RowCenter>
-                        <TYPE.black fontSize={26}>{t('dogAuditAgency')}</TYPE.black>
-                    </RowCenter>
-                    <RowCenter>
-                        <UseCaseImage src={SlowMistImg} style={{width: '140px', height: '140px'}}/>
-                    </RowCenter>
-                </AutoColumn>
-            </UseCaseWrapper>
-        </AppBody>
+          {!hideSomething && <BoardRoomButton>{t('boardRoom')}</BoardRoomButton>}
+        </BoardRoomWrapper>
+        <DogDataWrapper>
+          <DogDataTitle fontWeight="bold" fontSize={16}>{t('dogData')}</DogDataTitle>
+          <DogDataRow>
+          <DogDataLabel fontSize={16}>{t('dogTotalSupply')}</DogDataLabel>
+            <DogDataValue fontSize={16}>
+              ≈
+              <Value value={dogTotalSupply} />
+            </DogDataValue>
+          </DogDataRow>
+          <DogDataRow>
+          <DogDataLabel fontSize={16}>{t('dogTotalDestory')}</DogDataLabel>
+            <DogDataValue fontSize={16}>
+              <Value value={dogDestory} /> DOG 
+               ≈ $ 
+              <Value value={dogDestoryAmount} />
+            </DogDataValue>
+          </DogDataRow>
+          <DogDataRow>
+          <DogDataLabel fontSize={16}>{t('dogNewBlock')}</DogDataLabel>
+            <DogDataValue fontSize={16}>
+              =
+              <Value value={dogPerBlock} />
+            </DogDataValue>
+          </DogDataRow>
+        </DogDataWrapper>
+        <TableWrapper>
+          <BoradTalbeTitle style={{ background: theme.primary7 }}>
+            <span>{t('boardRoom')}</span>
+            <span style={{cursor: 'pointer'}} onClick={() => {
+                history.push('/board')
+              }}>{t('more')} &gt;</span>
+          </BoradTalbeTitle>
+          <TableBody>
+            <TableRow style={{ border: 'none' }}>
+              <TableColumn style={{ fontWeight: 'bold' }}>{t('stake')}</TableColumn>
+              <TableColumn style={{ fontWeight: 'bold', textAlign: 'center' }}>{t('earned')}</TableColumn>
+              <TableColumn style={{ fontWeight: 'bold', textAlign: 'right' }}>APY</TableColumn>
+            </TableRow>
+            <TableRow>
+              <TableColumn>DOG</TableColumn>
+              <TableColumn style={{ textAlign: 'center' }}>DOGE</TableColumn>
+              <TableColumn style={{ textAlign: 'right' }}><Value value={boardAPY} />%</TableColumn>
+            </TableRow>
+          </TableBody>
+        </TableWrapper>
+        {!hideSomething && (
+          <>
+            <SummaryCardWrapper>
+              {/* {!darkMode && (<SummaryCardImg />)} */}
+              <AutoColumn gap="md">
+                <RowBetween>
+                  <TYPE.white fontSize={18}>{t('currentOutput')}</TYPE.white>
+                </RowBetween>
+                <RowBetween>
+                  <TYPE.white fontSize={32}>
+                    <Value value={infoData.mintDogTokens} />
+                  </TYPE.white>
+                </RowBetween>
+              </AutoColumn>
+            </SummaryCardWrapper>
+            <SummaryCardWrapper>
+              {/* {!darkMode && (<SummaryCardImg />)} */}
+              <AutoColumn gap="md">
+                <RowBetween>
+                  <TYPE.white fontSize={18}>{t('cuarrentMarketOutput')}</TYPE.white>
+                </RowBetween>
+                <RowBetween>
+                  <TYPE.white fontSize={32}>
+                    $<Value value={mintTokenPrice} />
+                  </TYPE.white>
+                </RowBetween>
+              </AutoColumn>
+            </SummaryCardWrapper>
+          </>
+        )}
+        <TableWrapper>
+          <BoradTalbeTitle style={{ background: theme.black }}>
+            <span>{t('lpmining')}</span>
+            <span
+              style={{
+                cursor: 'pointer'
+              }}
+              onClick={() => {
+                history.push('/mining/lp')
+              }}
+            >
+              {t('more')} &gt;
+            </span>
+          </BoradTalbeTitle>
+          <TableBody>
+            <TableRow style={{ border: 'none' }}>
+              <TableColumn style={{ fontWeight: 'bold' }}>{t('stake')}</TableColumn>
+              <TableColumn style={{ fontWeight: 'bold', textAlign: 'center' }}>{t('earned')}</TableColumn>
+              <TableColumn style={{ fontWeight: 'bold', textAlign: 'right' }}>APY</TableColumn>
+            </TableRow>
+            {pools.length ? (
+              pools.map((item, index) => (
+                <TableRow key={index}>
+                  <TableColumn>{`${item.tokenName0}${item.tokenName1 && `/${item.tokenName1}`}`}</TableColumn>
+                  <TableColumn style={{ textAlign: 'center' }}>DOG</TableColumn>
+                  <TableColumn style={{ textAlign: 'right' }}>
+                    <Value value={item.realApy} />%
+                  </TableColumn>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableColumn />
+                <TableColumn style={{ textAlign: 'center' }}>{t('caculating')}</TableColumn>
+                <TableColumn style={{ textAlign: 'right' }} />
+              </TableRow>
+            )}
+          </TableBody>
+        </TableWrapper>
+        <FeeWrapper>
+          <FeeRow>
+            <TransLabel fontSize={16}>{t('24hoursTrans')}</TransLabel>
+            <TransValue fontSize={18}>
+              ≈$
+              <Value value={infoData.amountOf24h} />
+            </TransValue>
+          </FeeRow>
+          <FeeRow style={{ borderBottom: 'none' }}>
+            <TransLabel fontSize={16}>{t('totalTrans')}</TransLabel>
+            <TransValue fontSize={18}>
+              ≈$
+              <Value value={infoData.totalAmount} />
+            </TransValue>
+          </FeeRow>
+        </FeeWrapper>
+        <FeeWrapper>
+          <FeeRow>
+            <TransLabel fontSize={16}>{t('24hoursFee')}</TransLabel>
+            <TransValue fontSize={18}>
+              ≈$
+              <Value value={infoData.feeOf24h} />
+            </TransValue>
+          </FeeRow>
+          <FeeRow style={{ borderBottom: 'none' }}>
+            <TransLabel fontSize={16}>{t('totalFee')}</TransLabel>
+            <TransValue fontSize={18}>
+              ≈$
+              <Value value={infoData.totalFee} />
+            </TransValue>
+          </FeeRow>
+        </FeeWrapper>
+        <UseCaseWrapper>
+          <AutoColumn gap="md" justify="center">
+            <RowCenter>
+              <TYPE.black fontSize={26}>{t('dogUseSenarios')}</TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <UseCaseImage src={CycleImg} />
+            </RowCenter>
+            <RowCenter>
+              <TYPE.black fontSize={20} fontWeight={300}>
+                {t('repurchase')}
+              </TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <TYPE.black fontSize={22} fontWeight={300}>
+                {t('repurchaseAndDestory')}
+              </TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <UseCaseImage src={RewardsImg} style={{ width: '62px', height: '70px' }} />
+            </RowCenter>
+            <RowCenter>
+              <TYPE.black fontSize={20} fontWeight={300}>
+                {t('rewards')}
+              </TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <TYPE.black fontSize={22} fontWeight={300}>
+                {t('rewardsToPeople')}
+              </TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <UseCaseImage src={ChatImg} style={{ width: '60px', height: '58px' }} />
+            </RowCenter>
+            <RowCenter>
+              <TYPE.black fontSize={20} fontWeight={300}>
+                DAO
+              </TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <TYPE.black fontSize={22} fontWeight={300}>
+                {t('communityVote')}
+              </TYPE.black>
+            </RowCenter>
+          </AutoColumn>
+        </UseCaseWrapper>
+        <UseCaseWrapper>
+          <AutoColumn gap="md" justify="center">
+            <RowCenter>
+              <TYPE.black fontSize={26}>{t('dogAuditAgency')}</TYPE.black>
+            </RowCenter>
+            <RowCenter>
+              <UseCaseImage src={darkMode ? SlowMistDark : SlowMistLight} style={{ width: '140px' }} />
+            </RowCenter>
+          </AutoColumn>
+        </UseCaseWrapper>
+      </AppBody>
     )
 }

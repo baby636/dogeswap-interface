@@ -474,8 +474,17 @@ export default function Header() {
               to={'/mining/lp'}>
               {t('lpmining')}
             </StyledNavLink>
+            <StyledNavLink 
+              id={`lp-mining`} 
+              isActive={(match, { pathname }) =>
+                Boolean(match) ||
+                pathname.startsWith('/board')
+              }
+              to={'/board'}>
+              {t('boardRoom')}
+            </StyledNavLink>
             {/* <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('lpmining')}</CommingSoonButon> */}
-            <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('boardRoom')}</CommingSoonButon>
+            {/* <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('boardRoom')}</CommingSoonButon> */}
             <CommingSoonButon onClick={() => {setCommingSoonVisible(true)}}>{t('crossChainSwap')}</CommingSoonButon>
             <StyledExternalLink id={`stake-nav-link`} href={'https://info.dogeswap.com'}>
               {t('info')} <span style={{ fontSize: '11px' }}>↗</span>

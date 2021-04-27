@@ -10,13 +10,13 @@ import { TYPE } from '../../theme';
 import { Search } from 'react-feather';
 import { NavLink } from 'react-router-dom';
 import RightItems from '../../components/RuleSlider';
-import FireImg from '../../assets/images/fire.png';
+// import FireImg from '../../assets/images/fire.png';
 // import { TOKEN } from '../../constants/farm';
 import initWeb3 from '../../hooks/init-web3';
 import { useActiveWeb3React } from '../../hooks';
 import * as utils from '../../data/farm';
 import TokenImage from '../../components/TokenImage';
-// import useGetAPYConnectMinerInfo from '../../hooks/farm/useGetAPYConnectMinerInfo';
+import useGetAPYConnectMinerInfo from '../../hooks/farm/useGetAPYConnectMinerInfo';
 // import { getTokenPriceMockData } from '../../graphql/token-price';
 import useGetPoolInfoWithTokenPrice from '../../hooks/use-get-poolInfo';
 import moment from 'moment-timezone';
@@ -85,7 +85,7 @@ const SearchWrapper = styled.div`
 `;
 
 const SearchButton = styled(NavLink)`
-    padding: 0.5rem 1.5rem !important;
+    padding: 0.5rem 1.5rem;
     /* height: 2.4rem; */
     font-size: 0.75rem;
     min-height: 2rem;
@@ -208,20 +208,20 @@ const TextValue = styled(TYPE.black)`
 `;
 
 
-const Fire = styled.div`
-    position: absolute;
-    right: 0.6rem;
-    top: 0.4rem;
-    width: 2.25rem;
-    height: 2.25rem;
-    font-size: 10px;
-    padding-top: 0.9rem;
-    text-align: center;
-    background: url(${FireImg}) no-repeat;
-    background-position: center center;
-    background-size: 100% 100%;
-    color: ${({ theme }) => theme.white};
-`;
+// const Fire = styled.div`
+//     position: absolute;
+//     right: 0.6rem;
+//     top: 0.4rem;
+//     width: 2.25rem;
+//     height: 2.25rem;
+//     font-size: 10px;
+//     padding-top: 0.9rem;
+//     text-align: center;
+//     background: url(${FireImg}) no-repeat;
+//     background-position: center center;
+//     background-size: 100% 100%;
+//     color: ${({ theme }) => theme.white};
+// `;
 // const FireFlag = styled.div`
 //     position: absolute;
 //     right: 0.3rem;
@@ -280,11 +280,8 @@ export default function MiningTable() {
     const singleTimeRef = useRef<any>();
     const { fetchPid } = useGetPidOfPool(minerContract);
     const [singleFormateDate, setSingleFormateDate] = useState('');
-    // const APYConnectedInfo = useGetAPYConnectMinerInfo(minerContract);
-    const {
-        poolInfos,
-        poolCaculateInfo,
-    } = useGetPoolInfoWithTokenPrice(minerContract);
+    const APYConnectedInfo = useGetAPYConnectMinerInfo(web3, minerContract)
+    const { poolInfos, poolCaculateInfo } = useGetPoolInfoWithTokenPrice(APYConnectedInfo, minerContract)
 
     // contract init
     useEffect(() => {
@@ -327,14 +324,14 @@ export default function MiningTable() {
         }
     }
 
-    function getPoolModulusFlag(name0: string, name1: string, value: number) {
-        return (
-            <>
-                <Fire>{value}X</Fire>
-                {/* <FireFlag>3</FireFlag> */}
-            </>
-        )
-    }
+    // function getPoolModulusFlag(value: number) {
+    //     return (
+    //         <>
+    //             <Fire>{value}X</Fire>
+    //             {/* <FireFlag>3</FireFlag> */}
+    //         </>
+    //     )
+    // }
 
     const listData = useMemo(() => {
         if (!poolCaculateInfo) return [];
@@ -343,7 +340,9 @@ export default function MiningTable() {
         return poolCaculateInfo.filter((item) => {
             return (reg.test(item.tokenName0.toLowerCase()) || (item.tokenName1 && reg.test(item.tokenName1.toLowerCase()))) && item.poolType === poolType;
         }).sort((a, b) => {
-            return (new BigNumber(b.realApy)).toNumber() - (new BigNumber(a.realApy)).toNumber();
+            return a.allocPoint > 0 && b.allocPoint > 0
+              ? new BigNumber(b.realApy).toNumber() - new BigNumber(a.realApy).toNumber()
+              : b.allocPoint - a.allocPoint
         })
     }, [poolCaculateInfo, filterValue, isLp]);
 
@@ -434,30 +433,45 @@ export default function MiningTable() {
             )
         };
         if (isLp) {
-            return listData.map((item, index) =>(
-                <ItemContainer className="borderRow" key={index} onClick={() => goToFarm(item.id)}>
-                    {getPoolModulusFlag(item.tokenName0, item.tokenName1 || '', item.allocPoint)}
-                    <RightArrow />
-                    <HeaderRow>
-                        <Row style={{width: '35%'}}>
-                            <TokenImage address={item.token0} />
-                            <TokenImage address={item.token1 || ''} />
-                        </Row>
-                        <RowBetween style={{width: '55%'}}>
-                            <TextLabel >TVL:</TextLabel>
-                            <TextValue>$<Value value={item.realTvl} /></TextValue>
-                        </RowBetween>
-                    </HeaderRow>
-                    <HeaderRow style={{marginTop: '0.6rem'}}>
-                        <RowBetween style={{width: '35%'}}>
-                            <OrangeText>{`${item.tokenName0}-${item.tokenName1}`}</OrangeText>
-                        </RowBetween>
-                        <RowBetween style={{width: '55%'}}>
-                            <TextLabel>APY:</TextLabel>
-                            <TextValue><Value value={item.realApy} />%</TextValue>
-                        </RowBetween>
-                    </HeaderRow>
-                </ItemContainer>
+            return listData.map((item, index) => (
+              <ItemContainer className="borderRow" key={index} onClick={() => goToFarm(item.id)}>
+                {item.allocPoint === 0 && (
+                  <Tag
+                    color="error"
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: 10
+                    }}
+                  >
+                    {t('unqualified')}
+                  </Tag>
+                )}
+                <RightArrow />
+                <HeaderRow>
+                  <Row style={{ width: '35%' }}>
+                    <TokenImage address={item.token0} />
+                    <TokenImage address={item.token1 || ''} />
+                  </Row>
+                  <RowBetween style={{ width: '55%' }}>
+                    <TextLabel>TVL:</TextLabel>
+                    <TextValue>
+                      $<Value value={item.realTvl} />
+                    </TextValue>
+                  </RowBetween>
+                </HeaderRow>
+                <HeaderRow style={{ marginTop: '0.6rem' }}>
+                  <RowBetween style={{ width: '35%' }}>
+                    <OrangeText>{`${item.tokenName0}-${item.tokenName1}`}</OrangeText>
+                  </RowBetween>
+                  <RowBetween style={{ width: '55%' }}>
+                    <TextLabel>APY:</TextLabel>
+                    <TextValue>
+                      <Value value={item.realApy} />%
+                    </TextValue>
+                  </RowBetween>
+                </HeaderRow>
+              </ItemContainer>
             ))
         } else {
             return listData.map((item, index) => (

@@ -1,18 +1,15 @@
-const CACHE_KEY = 'dog-token-info';
+const CACHE_KEY = 'rebuy-record-cache';
 
-export function getLocalCacheOfDogTokenInfo() {
+export function getLocalCacheOfRebuyRecords() {
     const localCache = window.localStorage.getItem(CACHE_KEY)
-    let parsedCache: any = {
-      price: 0,
-      decimals: 18,
-    };
+    let parsedCache: any = [];
     if (localCache) {
       parsedCache = JSON.parse(localCache)
     }
     return parsedCache;
   }
   
-export function setLocalCacheOfDogTokenInfo(data: any) {
+export function setLocalCacheOfRebuyRecords(data: any) {
     if (data) {
         window.localStorage.setItem(CACHE_KEY, JSON.stringify(data))
     }

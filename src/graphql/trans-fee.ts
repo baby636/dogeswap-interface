@@ -8,7 +8,7 @@ export default function transFee(pair: string, startTime: number, endTime: numbe
             .query({
                 variables: {
                     pair: pair.toLowerCase(),
-                    startTime,
+                    startTime: startTime - 1,
                     endTime,
                 },
                 query: gql`
@@ -33,12 +33,13 @@ export default function transFee(pair: string, startTime: number, endTime: numbe
             })
             .then(res => {
                 const {data} = res;
-                let fee = '0.00';
-                if (data.pairHourDatas && data.pairHourDatas.length) {
-                    fee = new BigNumber(data.pairHourDatas[0].hourlyVolumeUSD * 0.003).toFixed(2);
+                let totalFee = new BigNumber(0)
+                for (let index = 0; index < data.pairHourDatas.length; index++) {
+                    const hourData = new BigNumber(data.pairHourDatas[index].hourlyVolumeUSD)
+                    const hourFee = hourData.times(0.003)
+                    totalFee = totalFee.plus(hourFee)
                 }
-
-                resolve(fee);
+                resolve(totalFee.toFixed(2))
             })
             .catch(e => {
                 console.error(e.message);

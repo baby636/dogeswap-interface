@@ -180,7 +180,7 @@ export const AIRDROP_CONTRACT = {
         abi: AIRDROP_ABI,
     },
     128: {
-        address: '0x812A8FEa9FCEFA08973b0cC9174A75efB986CDd3',
+        address: '0xb097bF638a1DBF0B55BEF1D7417F5E77C8F086Ae',
         abi: AIRDROP_ABI,
     },
 };

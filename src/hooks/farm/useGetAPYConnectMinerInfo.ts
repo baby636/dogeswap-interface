@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getAPYConnectedMinerInfo } from '../../data/farm';
 
 const useGetAPYConnectedMinerInfo = (
+    web3: any,
     minerContract: any,
 ) => {
     const [info, setInfo] = useState<{
@@ -14,15 +15,15 @@ const useGetAPYConnectedMinerInfo = (
     } | undefined>();
 
     const fetchAPYConnectedInfo = useCallback(async () => {
-        const info = await getAPYConnectedMinerInfo(minerContract);
-        setInfo(info);
-    }, [minerContract]);
+      const info = await getAPYConnectedMinerInfo(web3, minerContract)
+      setInfo(info)
+    }, [minerContract, web3])
 
     useEffect(() => {
-        if (minerContract) {
-            fetchAPYConnectedInfo();
-        }
-    }, [minerContract]);
+      if (minerContract && web3) {
+        fetchAPYConnectedInfo()
+      }
+    }, [minerContract, web3, fetchAPYConnectedInfo])
 
     return info;
 };
